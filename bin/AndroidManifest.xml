@@ -2,6 +2,11 @@
     package="com.example.easylife"
     android:versionCode="1"
     android:versionName="1.0" >
+    
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <uses-sdk
         android:minSdkVersion="10"
@@ -45,6 +50,16 @@
             android:label="REPORT" >
             <intent-filter>
                 <action android:name="com.example.easylife.report" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
+        
+        <activity
+            android:name=".Confirm"
+            android:label="CONFIRM" >
+            <intent-filter>
+                <action android:name="com.example.easylife.confirm" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

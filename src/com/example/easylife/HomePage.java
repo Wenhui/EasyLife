@@ -19,7 +19,7 @@ public class HomePage extends Activity{
         
         //set up the button sound
         final MediaPlayer mpButtonClick = MediaPlayer.create(this, R.raw.button);
-		mpButtonClick.start();
+
         Button add = (Button) findViewById (R.id.button_add);
         add.setOnClickListener(new View.OnClickListener() {
 			
@@ -28,8 +28,6 @@ public class HomePage extends Activity{
 				
 				startActivity( new Intent("com.example.easylife.add"));
 				mpButtonClick.start();
-
-				
 			}
 		});
         
