@@ -7,5 +7,12 @@
     <string name="author">By Hong &amp; Wenhui</string>
     <string name="copyright">Copyright 2012</string>
     <string name="homepage_title">HOMEPAGE</string>
+    <string-array name="category">
+        <item >Food</item>
+        <item >Education</item>
+        <item >Gas</item>
+        <item >Rent</item>
+        <item >Cloth</item>
+    </string-array>
 
 </resources>

@@ -2,6 +2,7 @@ package com.example.easylife;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,8 +13,13 @@ public class HomePage extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		
         setContentView(R.layout.homepage);
+        
+        
+        
+        //set up the button sound
+        final MediaPlayer mpButtonClick = MediaPlayer.create(this, R.raw.button);
+		mpButtonClick.start();
         Button add = (Button) findViewById (R.id.button_add);
         add.setOnClickListener(new View.OnClickListener() {
 			
@@ -21,6 +27,8 @@ public class HomePage extends Activity{
 				// TODO Auto-generated method stub
 				
 				startActivity( new Intent("com.example.easylife.add"));
+				mpButtonClick.start();
+
 				
 			}
 		});
@@ -33,6 +41,7 @@ public class HomePage extends Activity{
 				// TODO Auto-generated method stub
 				
 				startActivity( new Intent("com.example.easylife.report"));
+				mpButtonClick.start();
 				
 			}
 		});
