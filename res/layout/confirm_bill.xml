@@ -9,27 +9,27 @@
         android:id="@+id/TextBillTitleDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bill Title" />
+        android:text="Bill Title:" />
 
 
     <TextView
         android:id="@+id/TextPriceDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Price" />
+        android:text="Price:$" />
 
     <TextView
         android:id="@+id/TextCategoryDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Category" />
+        android:text="Category:" />
 
 
     <TextView
         android:id="@+id/TextStatusDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Status" />
+        android:text="Status:" />
     
 
 </LinearLayout>

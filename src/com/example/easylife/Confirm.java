@@ -23,11 +23,24 @@ public class Confirm extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.confirm_bill);
+        String bill_title = getIntent().getStringExtra("bill_title");
+        Double bill_price = getIntent().getDoubleExtra("bill_price", 0.0);
+        String bill_category = getIntent().getStringExtra("bill_category");
+        Boolean bill_status = getIntent().getBooleanExtra("bill_status", false);
+
+        ((TextView)findViewById(R.id.TextBillTitleDisplay)).append(bill_title);
+        ((TextView)findViewById(R.id.TextPriceDisplay)).append(bill_price.toString());
+        ((TextView)findViewById(R.id.TextCategoryDisplay)).append(bill_category);
+        if (bill_status == true){
+        	 ((TextView)findViewById(R.id.TextStatusDisplay)).append("Paid");        		 
+        }
+        else{
+        	((TextView)findViewById(R.id.TextStatusDisplay)).append("Unpaid");     
+        }
         
-//        String bill_title = ((EditText)findViewById(R.id.editTextBillTitle)).getText().toString();
-//        ((TextView)findViewById(R.id.TextBillTitleDisplay)).append(bill_title);
         
-        setContentView(R.layout.confirm_bill);
+        
 	}
 
 }

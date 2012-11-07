@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.EditText;
+import android.widget.CheckBox;
 
 import com.example.easylife.R;
 
@@ -29,6 +31,7 @@ public class Add extends Activity{
         final MediaPlayer mpButtonClick = MediaPlayer.create(this, R.raw.button);
     
         Spinner spinner = (Spinner) findViewById(R.id.SpinnerCategory);
+
         
      // Create an ArrayAdapter using the string array and a default spinner layout
      ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -95,16 +98,18 @@ public class Add extends Activity{
      
      Button next = (Button) findViewById (R.id.ButtonNext);
      
+     
      next.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				mpButtonClick.start();
-				startActivity( new Intent("com.example.easylife.confirm"));
-				
-				
-				
-				
+				Intent toConfirm = new Intent("com.example.easylife.confirm");
+				toConfirm.putExtra("bill_title", ((EditText)findViewById(R.id.editTextBillTitle)).getText().toString());//String
+				toConfirm.putExtra("bill_price", Double.parseDouble(((EditText)findViewById(R.id.editTextPrice)).getText().toString()));//Double
+				toConfirm.putExtra("bill_category", ((Spinner)findViewById(R.id.SpinnerCategory)).getSelectedItem().toString());//String
+				toConfirm.putExtra("bill_status", ((CheckBox)findViewById(R.id.CheckBoxStatus)).isChecked());//Boolean
+				startActivity(toConfirm);				
 			}
 		});
      
