@@ -38,7 +38,8 @@
         
          <activity
             android:name=".Add"
-            android:label="ADD" >
+            android:label="ADD" 
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.example.easylife.add" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -54,6 +55,7 @@
             </intent-filter>
         </activity>
         
+   
         
         <activity
             android:name=".Confirm"
@@ -64,6 +66,7 @@
             </intent-filter>
         </activity>
         
+
         
     </application>
 

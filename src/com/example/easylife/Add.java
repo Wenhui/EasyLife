@@ -1,14 +1,19 @@
 package com.example.easylife;
 import java.io.File;
+import java.io.InputStream;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.EditText;
 import android.widget.CheckBox;
@@ -16,20 +21,27 @@ import android.widget.CheckBox;
 import com.example.easylife.R;
 
 
-public class Add extends Activity{
+public class Add extends Activity implements View.OnClickListener{
 	
 	private MediaPlayer mediaPlayer;
 	private MediaRecorder recorder;
 	private static final String OUTPUT_FILE= "/sdcard/recordoutput.3gp";
+    private Intent i;
+    final static int CameraData = 0;
+    private Bitmap bmp; 
+    private ImageView showpic;
+    private ImageButton takepic;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.new_bill);
+        InputStream is = getResources().openRawResource(R.drawable.easylifelog);
+        bmp = BitmapFactory.decodeStream(is);
         
         final MediaPlayer mpButtonClick = MediaPlayer.create(this, R.raw.button);
-    
+
         Spinner spinner = (Spinner) findViewById(R.id.SpinnerCategory);
 
         
@@ -41,6 +53,12 @@ public class Add extends Activity{
      // Apply the adapter to the spinner
      spinner.setAdapter(adapter);
 
+     
+     showpic = (ImageView) findViewById (R.id.imageViewReturnedPic);
+     showpic.setOnClickListener(this);
+     
+     takepic = (ImageButton) findViewById (R.id.imageButtonTakePic);
+     takepic.setOnClickListener(this);
      
      Button recordStart = (Button) findViewById (R.id.ButtonRecordStart);
      
@@ -217,4 +235,28 @@ public class Add extends Activity{
 		}
 	}
 
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.imageButtonTakePic:
+			i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+			startActivityForResult(i, CameraData);
+		case R.id.imageViewReturnedPic:
+			break;
+			
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		if(resultCode == RESULT_OK) {
+			Bundle extras = data.getExtras();
+			bmp = (Bitmap) extras.get("data");
+			showpic.setImageBitmap(bmp);
+		}
+	}
+
+	
 }

@@ -19,10 +19,10 @@ public final class R {
         public static final int ic_launcher=0x7f020002;
     }
     public static final class id {
-        public static final int ButtonBack=0x7f090011;
-        public static final int ButtonNext=0x7f090012;
-        public static final int ButtonRecordStart=0x7f090013;
-        public static final int ButtonRecordStop=0x7f090014;
+        public static final int ButtonBack=0x7f090013;
+        public static final int ButtonNext=0x7f090014;
+        public static final int ButtonRecordStart=0x7f090015;
+        public static final int ButtonRecordStop=0x7f090016;
         public static final int CheckBoxStatus=0x7f090010;
         public static final int SpinnerCategory=0x7f09000e;
         public static final int TextBillTitle=0x7f090009;
@@ -38,7 +38,9 @@ public final class R {
         public static final int button_report=0x7f090007;
         public static final int editTextBillTitle=0x7f09000a;
         public static final int editTextPrice=0x7f09000c;
-        public static final int menu_settings=0x7f090015;
+        public static final int imageButtonTakePic=0x7f090012;
+        public static final int imageViewReturnedPic=0x7f090011;
+        public static final int menu_settings=0x7f090017;
         public static final int textView1=0x7f090001;
         public static final int textView2=0x7f090000;
     }
