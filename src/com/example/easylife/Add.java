@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.InputStream;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.EditText;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.example.easylife.R;
 
@@ -122,12 +124,38 @@ public class Add extends Activity implements View.OnClickListener{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				mpButtonClick.start();
+				
+     
 				Intent toConfirm = new Intent("com.example.easylife.confirm");
 				toConfirm.putExtra("bill_title", ((EditText)findViewById(R.id.editTextBillTitle)).getText().toString());//String
 				toConfirm.putExtra("bill_price", Double.parseDouble(((EditText)findViewById(R.id.editTextPrice)).getText().toString()));//Double
 				toConfirm.putExtra("bill_category", ((Spinner)findViewById(R.id.SpinnerCategory)).getSelectedItem().toString());//String
 				toConfirm.putExtra("bill_status", ((CheckBox)findViewById(R.id.CheckBoxStatus)).isChecked());//Boolean
-				startActivity(toConfirm);				
+				startActivity(toConfirm);
+				
+				boolean ItWorks = true;
+				try{
+				String title = ((EditText)findViewById(R.id.editTextBillTitle)).getText().toString();
+				double price = Double.parseDouble(((EditText)findViewById(R.id.editTextPrice)).getText().toString());
+				String category = ((Spinner)findViewById(R.id.SpinnerCategory)).getSelectedItem().toString();
+				boolean status = ((CheckBox)findViewById(R.id.CheckBoxStatus)).isChecked();
+				
+				Database entry = new Database(Add.this);
+				entry.open();
+				entry.createEntry(title, price, category, status);
+				entry.close();
+				} catch (Exception e) {
+					ItWorks = false;
+				} finally {
+					if (ItWorks) {
+						Dialog d = new Dialog(Add.this);
+						d.setTitle("Yeah!");
+						TextView tv = new TextView(Add.this);
+						tv.setText("Success add to database");
+						d.setContentView(tv);
+						d.show();
+						}
+				}
 			}
 		});
      
