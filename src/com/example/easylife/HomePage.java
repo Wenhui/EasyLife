@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class HomePage extends Activity{
 
@@ -15,6 +16,13 @@ public class HomePage extends Activity{
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.homepage);
         
+        
+        TextView tv = (TextView) findViewById(R.id.tvSQLinfo);
+        Database info = new Database(this);
+        info.open();
+        String data = info.getData();
+        info.close();
+        tv.setText(data);
         
         
         //set up the button sound

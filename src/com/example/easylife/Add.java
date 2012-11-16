@@ -146,6 +146,14 @@ public class Add extends Activity implements View.OnClickListener{
 				entry.close();
 				} catch (Exception e) {
 					ItWorks = false;
+					String s = e.toString();
+					Dialog d = new Dialog(Add.this);
+					d.setTitle("Oops!");
+					TextView tv = new TextView(Add.this);
+					tv.setText(s);
+					d.setContentView(tv);
+					d.show();
+					
 				} finally {
 					if (ItWorks) {
 						Dialog d = new Dialog(Add.this);

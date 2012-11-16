@@ -39,7 +39,18 @@ public class Confirm extends Activity{
         	((TextView)findViewById(R.id.TextStatusDisplay)).append("Unpaid");     
         }
         
+        final MediaPlayer mpButtonClick = MediaPlayer.create(this, R.raw.button);
         
+        Button confirm = (Button) findViewById (R.id.button_confirm);
+        confirm.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+				startActivity( new Intent("com.example.easylife.homepage"));
+				mpButtonClick.start();
+			}
+		});
         
 	}
 
