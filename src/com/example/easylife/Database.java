@@ -101,4 +101,73 @@ public class Database {
 			}
 		return result;
 	}
+
+	public String getName(long l) {
+		// TODO Auto-generated method stub
+		String[] columns = new String[]{
+				KEY_ROWID, KEY_TITLE, KEY_PRICE, KEY_CATEGORY, KEY_STATUS
+		};
+		Cursor c = ourDatabase.query(DATABASE_TABLE, columns, KEY_ROWID + "=" + l, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+			String name = c.getString(1);
+			return name;
+		}
+		return null;
+	}
+
+	public double getPrice(long l) {
+		// TODO Auto-generated method stub
+		String[] columns = new String[]{
+				KEY_ROWID, KEY_TITLE, KEY_PRICE, KEY_CATEGORY, KEY_STATUS
+		};
+		Cursor c = ourDatabase.query(DATABASE_TABLE, columns, KEY_ROWID + "=" + l, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+			String price = c.getString(2);
+			return Double.parseDouble(price);
+		}
+		return 0;
+	}
+
+	public String getCategory(long l) {
+		// TODO Auto-generated method stub
+		String[] columns = new String[]{
+				KEY_ROWID, KEY_TITLE, KEY_PRICE, KEY_CATEGORY, KEY_STATUS
+		};
+		Cursor c = ourDatabase.query(DATABASE_TABLE, columns, KEY_ROWID + "=" + l, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+			String category = c.getString(3);
+			return category;
+		}
+		return null;
+	}
+
+	public boolean getStatus(long l) {
+		// TODO Auto-generated method stub
+		String[] columns = new String[]{
+				KEY_ROWID, KEY_TITLE, KEY_PRICE, KEY_CATEGORY, KEY_STATUS
+		};
+		Cursor c = ourDatabase.query(DATABASE_TABLE, columns, KEY_ROWID + "=" + l, null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+			String status = c.getString(4);
+			return Boolean.parseBoolean(status);
+		}
+		return false;
+	}
+
+	public void update(long lRow, String mName) {
+		// TODO Auto-generated method stub
+		ContentValues cvUpdate = new ContentValues();
+		cvUpdate.put(KEY_TITLE, mName);
+		ourDatabase.update(DATABASE_TABLE, cvUpdate, KEY_ROWID + "=" + lRow, null);
+		}
+
+	public void delete(long lRow1) {
+		// TODO Auto-generated method stub
+		ourDatabase.delete(DATABASE_TABLE, KEY_ROWID + "=" + lRow1, null);
+		
+	}
 }

@@ -4,6 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <EditText
+        android:id="@+id/SQLname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" />
+    
+    
     <Button
         android:id="@+id/button_report"
         android:layout_width="wrap_content"
@@ -16,7 +23,38 @@
         android:layout_height="wrap_content"
         android:text="ADD" />
 
+    <TextView
+        android:id="@+id/SQLrowNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter a row number" />
+    
+    <EditText
+        android:id="@+id/etSQLrowInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number" />
+    
+    <Button
+        android:id="@+id/button_SQLgetInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get Information" />     
+        
+    <Button
+        android:id="@+id/button_SQLEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit" />   
 
+    
+    <Button
+        android:id="@+id/button_SQLDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete" />  
+            
     <TextView
         android:id="@+id/tvSQLinfo"
         android:layout_width="fill_parent"
