@@ -1,94 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/TextBillTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bill Title" />
-
-    <EditText
-        android:id="@+id/editTextBillTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:id="@+id/TextPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Price" />
-
-    <EditText
-        android:id="@+id/editTextPrice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="numberDecimal" />
-
-    <TextView
-        android:id="@+id/TextCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Category" />
-
-    <Spinner
-        android:id="@+id/SpinnerCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/TextStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Status" />
-
-    <CheckBox
-        android:id="@+id/CheckBoxStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Paid" />
-
-    <ImageView
-        android:id="@+id/imageViewReturnedPic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/easylifelog" />
-
-    <ImageButton
-        android:id="@+id/imageButtonTakePic"
-        android:layout_width="131dp"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/btn_star" />
-
-    <Button
-        android:id="@+id/ButtonBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back" />
 
     <Button
         android:id="@+id/ButtonNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
         android:text="Next" />
 
     <Button
-        android:id="@+id/ButtonRecordStart"
+        android:id="@+id/ButtonBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RecordStart" />
+        android:layout_alignParentTop="true"
+        android:text="Back" />
 
-    <Button
-        android:id="@+id/ButtonRecordStop"
+    <TextView
+        android:id="@+id/TextBillTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RecordStop" />
+        android:layout_alignRight="@+id/ButtonBack"
+        android:layout_below="@+id/ButtonBack"
+        android:layout_marginTop="20dp"
+        android:text="Bill Title" />
+
+    <EditText
+        android:id="@+id/editTextBillTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/CheckBoxStatus"
+        android:layout_below="@+id/TextBillTitle"
+        android:ems="10" >
 
-</LinearLayout>
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/TextPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/TextBillTitle"
+        android:layout_below="@+id/editTextBillTitle"
+        android:text="Price" />
+
+    <EditText
+        android:id="@+id/editTextPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/editTextBillTitle"
+        android:layout_below="@+id/TextPrice"
+        android:ems="10"
+        android:inputType="numberDecimal" />
+
+   <TextView
+       android:id="@+id/TextCategory"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentLeft="true"
+       android:layout_below="@+id/editTextPrice"
+       android:text="Category" />
+
+   <Spinner
+       android:id="@+id/SpinnerCategory"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_alignParentLeft="true"
+       android:layout_below="@+id/TextCategory" />
+
+   <TextView
+       android:id="@+id/TextStatus"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignLeft="@+id/TextPrice"
+       android:layout_below="@+id/SpinnerCategory"
+       android:text="Status" />
+
+   <CheckBox
+       android:id="@+id/CheckBoxStatus"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignBaseline="@+id/TextStatus"
+       android:layout_alignBottom="@+id/TextStatus"
+       android:layout_marginLeft="40dp"
+       android:layout_toRightOf="@+id/TextCategory"
+       android:text="Paid" />
+
+   <ImageView
+       android:id="@+id/imageViewReturnedPic"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignBottom="@+id/editTextPrice"
+       android:layout_alignParentRight="true"
+       android:layout_alignTop="@+id/editTextBillTitle"
+       android:layout_toRightOf="@+id/editTextBillTitle"
+       android:src="@drawable/easylifelog" />
+
+  <ImageButton
+      android:id="@+id/imageButtonTakePic"
+      android:layout_width="131dp"
+      android:layout_height="wrap_content"
+      android:layout_alignParentLeft="true"
+      android:layout_below="@+id/CheckBoxStatus"
+      android:layout_marginTop="29dp"
+      android:src="@android:drawable/btn_star" />
+
+   <Button
+       android:id="@+id/ButtonRecordStop"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_below="@+id/imageButtonTakePic"
+       android:layout_marginTop="36dp"
+       android:layout_toLeftOf="@+id/ButtonNext"
+       android:text="RecordStop" />
+
+   <Button
+       android:id="@+id/ButtonRecordStart"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignBaseline="@+id/ButtonRecordStop"
+       android:layout_alignBottom="@+id/ButtonRecordStop"
+       android:layout_alignLeft="@+id/TextStatus"
+       android:text="RecordStart" />
+
+</RelativeLayout>

@@ -42,6 +42,8 @@ public class Add extends Activity implements View.OnClickListener{
         InputStream is = getResources().openRawResource(R.drawable.easylifelog);
         bmp = BitmapFactory.decodeStream(is);
         
+        
+        
         final MediaPlayer mpButtonClick = MediaPlayer.create(this, R.raw.button);
 
         Spinner spinner = (Spinner) findViewById(R.id.SpinnerCategory);

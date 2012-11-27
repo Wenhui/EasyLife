@@ -138,6 +138,11 @@ public class HomePage extends Activity implements View.OnClickListener{
 			mdb.open();
 			mdb.update(lRow, mName);
 			mdb.close();
+	        TextView tv = (TextView) findViewById(R.id.tvSQLinfo);
+	        String data = mdb.getData();
+	        mdb.close();
+	        tv.setText(data);
+			break;
 			
 		case R.id.button_SQLDelete:
 			String sRow1 = sqlRow.getText().toString();
@@ -146,6 +151,7 @@ public class HomePage extends Activity implements View.OnClickListener{
 			ex1.open();
 			ex1.delete(lRow1);
 			ex1.close();
+			break;
 			
 		}
 	}
