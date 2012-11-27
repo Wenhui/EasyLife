@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -41,9 +42,7 @@ public class Add extends Activity implements View.OnClickListener{
         setContentView(R.layout.new_bill);
         InputStream is = getResources().openRawResource(R.drawable.easylifelog);
         bmp = BitmapFactory.decodeStream(is);
-        
-        
-        
+             
         final MediaPlayer mpButtonClick = MediaPlayer.create(this, R.raw.button);
 
         Spinner spinner = (Spinner) findViewById(R.id.SpinnerCategory);
@@ -64,46 +63,41 @@ public class Add extends Activity implements View.OnClickListener{
      takepic = (ImageButton) findViewById (R.id.imageButtonTakePic);
      takepic.setOnClickListener(this);
      
-     Button recordStart = (Button) findViewById (R.id.ButtonRecordStart);
+     Button recordStart = (Button) findViewById (R.id.ButtonRecord);
      
-     recordStart.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
+     
+     recordStart.setOnTouchListener(new View.OnTouchListener() {
+
+			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
-				
-	//			startActivity( new Intent("com.example.easylife.report"));
-				mpButtonClick.start();
-				try {
-					beginRecording();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
+				switch(event.getAction() & MotionEvent.ACTION_MASK) {
+					case MotionEvent.ACTION_DOWN:
+					try {
+						mpButtonClick.start();
+						beginRecording();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+						return true;
+					case MotionEvent.ACTION_UP:
+						try {
+							stopRecording();
+							mpButtonClick.start();
+							playRecording();
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						return true;
+					default:
+						return false;
+		      }
 			}
-		});
+    	  });
      
+
      
-     Button recordStop = (Button) findViewById (R.id.ButtonRecordStop);
-     
-     recordStop.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-//				startActivity( new Intent("com.example.easylife.report"));
-				mpButtonClick.start();
-				
-				try {
-					stopRecording();
-					playRecording();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			}
-		});
      
      Button back = (Button) findViewById (R.id.ButtonBack);
      
@@ -112,7 +106,7 @@ public class Add extends Activity implements View.OnClickListener{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				
-//				startActivity( new Intent("com.example.easylife.report"));
+				startActivity( new Intent("com.example.easylife.homepage"));
 				mpButtonClick.start();
 				
 			}
@@ -155,7 +149,6 @@ public class Add extends Activity implements View.OnClickListener{
 					tv.setText(s);
 					d.setContentView(tv);
 					d.show();
-					
 				} finally {
 					if (ItWorks) {
 						Dialog d = new Dialog(Add.this);

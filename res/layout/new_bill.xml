@@ -101,31 +101,21 @@
        android:layout_toRightOf="@+id/editTextBillTitle"
        android:src="@drawable/easylifelog" />
 
-  <ImageButton
-      android:id="@+id/imageButtonTakePic"
-      android:layout_width="131dp"
-      android:layout_height="wrap_content"
-      android:layout_alignParentLeft="true"
-      android:layout_below="@+id/CheckBoxStatus"
-      android:layout_marginTop="29dp"
-      android:src="@android:drawable/btn_star" />
-
    <Button
-       android:id="@+id/ButtonRecordStop"
+       android:id="@+id/ButtonRecord"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:layout_below="@+id/imageButtonTakePic"
-       android:layout_marginTop="36dp"
-       android:layout_toLeftOf="@+id/ButtonNext"
-       android:text="RecordStop" />
-
-   <Button
-       android:id="@+id/ButtonRecordStart"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignBaseline="@+id/ButtonRecordStop"
-       android:layout_alignBottom="@+id/ButtonRecordStop"
        android:layout_alignLeft="@+id/TextStatus"
-       android:text="RecordStart" />
+       android:layout_below="@+id/CheckBoxStatus"
+       android:layout_marginTop="30dp"
+       android:text="MEMO" />
+
+   <ImageButton
+       android:id="@+id/imageButtonTakePic"
+       android:layout_width="131dp"
+       android:layout_height="wrap_content"
+       android:layout_alignBottom="@+id/ButtonRecord"
+       android:layout_toLeftOf="@+id/ButtonNext"
+       android:src="@android:drawable/btn_star" />
 
 </RelativeLayout>

@@ -80,13 +80,13 @@ public class Database {
 		
 	}
 
-	public String getData() {
+	public String [] getData() {
 		// TODO Auto-generated method stub
 		String[] columns = new String[]{
 				KEY_ROWID, KEY_TITLE, KEY_PRICE, KEY_CATEGORY, KEY_STATUS
 		};
 		Cursor c = ourDatabase.query(DATABASE_TABLE, columns, null, null, null, null, null);
-		String result = "";
+		String result [] = new String [c.getCount()];
 		
 		
 		int iRow = c.getColumnIndex(KEY_ROWID);
@@ -94,10 +94,12 @@ public class Database {
 		int iPrice= c.getColumnIndex(KEY_PRICE);
 		int iCategory = c.getColumnIndex(KEY_CATEGORY);
 		int iStatus = c.getColumnIndex(KEY_STATUS);
+		int i = 0;
 		
 		for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
-			result = result + c.getString(iRow) + " " + c.getString(iTitle) + " " + c.getString(iPrice) + " " + c.getString(iCategory)
-+ " " + c.getString(iStatus) + "\n";
+//			result = result + c.getString(iRow) + " " + c.getString(iTitle) + " " + c.getString(iPrice) + " " + c.getString(iCategory)
+//+ " " + c.getString(iStatus) + "\n";
+			result[i++] = c.getString(iRow) + " " + c.getString(iTitle);
 			}
 		return result;
 	}
@@ -167,7 +169,6 @@ public class Database {
 
 	public void delete(long lRow1) {
 		// TODO Auto-generated method stub
-		ourDatabase.delete(DATABASE_TABLE, KEY_ROWID + "=" + lRow1, null);
-		
+		ourDatabase.delete(DATABASE_TABLE, KEY_ROWID + "=" + lRow1, null);	
 	}
 }

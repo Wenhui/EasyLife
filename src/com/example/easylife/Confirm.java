@@ -17,8 +17,7 @@ import com.example.easylife.R;
 
 
 public class Confirm extends Activity{
-	
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -50,8 +49,6 @@ public class Confirm extends Activity{
 				startActivity( new Intent("com.example.easylife.homepage"));
 				mpButtonClick.start();
 			}
-		});
-        
+		});        
 	}
-
 }
