@@ -137,7 +137,6 @@ public class HomePage extends Activity implements View.OnClickListener{
 			Database mdb = new Database(this);
 			mdb.open();
 			mdb.update(lRow, mName);
-			mdb.close();
 	        TextView tv = (TextView) findViewById(R.id.tvSQLinfo);
 	        String data = mdb.getData();
 	        mdb.close();
@@ -150,6 +149,9 @@ public class HomePage extends Activity implements View.OnClickListener{
 			Database ex1 = new Database(this);
 			ex1.open();
 			ex1.delete(lRow1);
+	        TextView tv2 = (TextView) findViewById(R.id.tvSQLinfo);
+	        String data2 = ex1.getData();
+	        tv2.setText(data2);
 			ex1.close();
 			break;
 			
