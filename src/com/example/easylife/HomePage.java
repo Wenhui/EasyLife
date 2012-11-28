@@ -8,8 +8,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class HomePage extends Activity implements View.OnClickListener{
@@ -24,6 +26,7 @@ public class HomePage extends Activity implements View.OnClickListener{
     Button sqlModify;
     Button sqlGetInfo;
     Button sqlDelete;
+    Database db = new Database(this);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +35,10 @@ public class HomePage extends Activity implements View.OnClickListener{
         setContentView(R.layout.homepage);
         
         ListView listView = (ListView) findViewById(R.id.listView);
-//        String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
-//          "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-//          "Linux", "OS/2" };
 	    Database info = new Database(this);
 	    info.open();
 	    String[] values = info.getData();
 	    info.close();
-
         // First paramenter - Context
         // Second parameter - Layout for the row
         // Third parameter - ID of the TextView to which the data is written
@@ -53,16 +52,18 @@ public class HomePage extends Activity implements View.OnClickListener{
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View view, int position, long id){
                 // Start your Activity according to the item just clicked.
-            	
                 String product = ((TextView) view).getText().toString(); 
-//                // Launching new Activity on selecting single List Item
-//                Intent i = new Intent(getApplicationContext(), SingleListItem.class);
-//                // sending data to new activity
-//                i.putExtra("product", product);
-//                startActivity(i);
-                if(product.startsWith("1"))
-                startActivity( new Intent("com.example.easylife.report"));
-  	
+                String parameters[]  = product.split(" ");
+                long item_id = Long.parseLong(parameters[0]);
+	            db.open();           
+				Intent bill_info = new Intent("com.example.easylife.bill_info");
+				bill_info.putExtra("bill_title", db.getName(item_id));//String
+				bill_info.putExtra("bill_price", db.getPrice(item_id));//Double
+				bill_info.putExtra("bill_category", db.getCategory(item_id));//String
+				bill_info.putExtra("bill_status", db.getStatus(item_id));//Boolean
+				bill_info.putExtra("bill_id", item_id);
+	            db.close();    
+				startActivity(bill_info);
             }
         });
         
@@ -111,7 +112,21 @@ public class HomePage extends Activity implements View.OnClickListener{
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
+		
 		super.onResume();
+        ListView listView = (ListView) findViewById(R.id.listView);
+	    Database info = new Database(this);
+	    info.open();
+	    String[] values = info.getData();
+	    info.close();
+        // First paramenter - Context
+        // Second parameter - Layout for the row
+        // Third parameter - ID of the TextView to which the data is written
+        // Forth - the Array of data
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+          android.R.layout.simple_list_item_1, android.R.id.text1, values);
+
+        // Assign adapter to ListView
 	}
 
 	@Override

@@ -5,7 +5,7 @@
     android:orientation="vertical" >
 
     <ImageView
-        android:id="@+id/imageViewReturnedPic"
+        android:id="@+id/imageViewReturnedPic2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
@@ -13,7 +13,7 @@
         android:src="@drawable/easylifelog" />
 
     <TextView
-        android:id="@+id/TextBillTitle"
+        android:id="@+id/TextBillTitle2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -22,84 +22,84 @@
         android:text="Bill Title" />
 
     <EditText
-        android:id="@+id/editTextBillTitle"
+        android:id="@+id/editTextBillTitle2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/TextBillTitle"
+        android:layout_below="@+id/TextBillTitle2"
         android:ems="10" >
 
         <requestFocus />
     </EditText>
 
     <TextView
-        android:id="@+id/TextPrice"
+        android:id="@+id/TextPrice2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editTextBillTitle"
+        android:layout_below="@+id/editTextBillTitle2"
         android:text="Price" />
 
     <EditText
-        android:id="@+id/editTextPrice"
+        android:id="@+id/editTextPrice2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/TextPrice"
+        android:layout_below="@+id/TextPrice2"
         android:ems="10"
         android:inputType="numberDecimal" />
 
     <TextView
-        android:id="@+id/TextCategory"
+        android:id="@+id/TextCategory2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editTextPrice"
+        android:layout_below="@+id/editTextPrice2"
         android:text="Category" />
 
     <Spinner
-        android:id="@+id/SpinnerCategory"
+        android:id="@+id/SpinnerCategory2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/TextCategory" />
+        android:layout_below="@+id/TextCategory2" />
 
     <TextView
-        android:id="@+id/TextStatus"
+        android:id="@+id/TextStatus2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/SpinnerCategory"
+        android:layout_below="@+id/SpinnerCategory2"
         android:text="Status" />
 
     <CheckBox
-        android:id="@+id/CheckBoxStatus"
+        android:id="@+id/CheckBoxStatus2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/TextStatus"
-        android:layout_alignBottom="@+id/TextStatus"
-        android:layout_toRightOf="@+id/TextBillTitle"
+        android:layout_alignBaseline="@+id/TextStatus2"
+        android:layout_alignBottom="@+id/TextStatus2"
+        android:layout_toRightOf="@+id/TextBillTitle2"
         android:text="Paid" />
 
      <Button
-         android:id="@+id/ButtonRecord"
+         android:id="@+id/ButtonRecord2"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_alignParentRight="true"
-         android:layout_alignTop="@+id/TextStatus"
+         android:layout_alignTop="@+id/TextStatus2"
          android:layout_marginRight="24dp"
          android:text="MEMO" />
 
     <Button
-        android:id="@+id/ButtonEdit"
+        android:id="@+id/ButtonEdit2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/ButtonRecord"
+        android:layout_alignRight="@+id/ButtonRecord2"
         android:text="Edit" />
 
     <Button
-        android:id="@+id/ButtonBack"
+        android:id="@+id/ButtonBack2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

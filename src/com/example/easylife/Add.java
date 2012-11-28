@@ -120,45 +120,35 @@ public class Add extends Activity implements View.OnClickListener{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				mpButtonClick.start();
-				
-     
-				Intent toConfirm = new Intent("com.example.easylife.confirm");
-				toConfirm.putExtra("bill_title", ((EditText)findViewById(R.id.editTextBillTitle)).getText().toString());//String
-				toConfirm.putExtra("bill_price", Double.parseDouble(((EditText)findViewById(R.id.editTextPrice)).getText().toString()));//Double
-				toConfirm.putExtra("bill_category", ((Spinner)findViewById(R.id.SpinnerCategory)).getSelectedItem().toString());//String
-				toConfirm.putExtra("bill_status", ((CheckBox)findViewById(R.id.CheckBoxStatus)).isChecked());//Boolean
-				startActivity(toConfirm);
-				
-				boolean ItWorks = true;
-				try{
 				String title = ((EditText)findViewById(R.id.editTextBillTitle)).getText().toString();
-				double price = Double.parseDouble(((EditText)findViewById(R.id.editTextPrice)).getText().toString());
+				String price_string = ((EditText)findViewById(R.id.editTextPrice)).getText().toString();
 				String category = ((Spinner)findViewById(R.id.SpinnerCategory)).getSelectedItem().toString();
 				boolean status = ((CheckBox)findViewById(R.id.CheckBoxStatus)).isChecked();
 				
-				Database entry = new Database(Add.this);
-				entry.open();
-				entry.createEntry(title, price, category, status);
-				entry.close();
-				} catch (Exception e) {
-					ItWorks = false;
-					String s = e.toString();
+				System.out.println("title "+title);
+				System.out.println("price_string "+price_string);
+				
+				if(title.isEmpty() || price_string.isEmpty()){
 					Dialog d = new Dialog(Add.this);
-					d.setTitle("Oops!");
+					d.setTitle("Please fill all the blanks!");
 					TextView tv = new TextView(Add.this);
-					tv.setText(s);
 					d.setContentView(tv);
 					d.show();
-				} finally {
-					if (ItWorks) {
-						Dialog d = new Dialog(Add.this);
-						d.setTitle("Yeah!");
-						TextView tv = new TextView(Add.this);
-						tv.setText("Success add to database");
-						d.setContentView(tv);
-						d.show();
-						}
 				}
+				else{
+					double price = Double.parseDouble(price_string);	
+					Database entry = new Database(Add.this);
+					entry.open();
+					entry.createEntry(title, price, category, status);
+					entry.close();
+					
+					Intent toConfirm = new Intent("com.example.easylife.confirm");
+					toConfirm.putExtra("bill_title", title);//String
+					toConfirm.putExtra("bill_price", price);//Double
+					toConfirm.putExtra("bill_category", category);//String
+					toConfirm.putExtra("bill_status", status);//Boolean
+					startActivity(toConfirm);
+				}				
 			}
 		});
      

@@ -76,8 +76,6 @@ public class Database {
 		cv.put(KEY_CATEGORY, category);
 		cv.put(KEY_STATUS, status);
 		return ourDatabase.insert(DATABASE_TABLE, null, cv);
-		
-		
 	}
 
 	public String [] getData() {
@@ -154,17 +152,21 @@ public class Database {
 		Cursor c = ourDatabase.query(DATABASE_TABLE, columns, KEY_ROWID + "=" + l, null, null, null, null);
 		if (c != null) {
 			c.moveToFirst();
-			String status = c.getString(4);
-			return Boolean.parseBoolean(status);
+			int status = c.getInt(4);
+			return (status > 0);
 		}
 		return false;
 	}
 
-	public void update(long lRow, String mName) {
+	public void updateAllInfo(long lRow,String title, double price, String category,
+			boolean status) {
 		// TODO Auto-generated method stub
-		ContentValues cvUpdate = new ContentValues();
-		cvUpdate.put(KEY_TITLE, mName);
-		ourDatabase.update(DATABASE_TABLE, cvUpdate, KEY_ROWID + "=" + lRow, null);
+		ContentValues cv = new ContentValues();
+		cv.put(KEY_TITLE, title);
+		cv.put(KEY_PRICE, price);
+		cv.put(KEY_CATEGORY, category);
+		cv.put(KEY_STATUS, status);
+		ourDatabase.update(DATABASE_TABLE, cv, KEY_ROWID + "=" + lRow, null);
 		}
 
 	public void delete(long lRow1) {
