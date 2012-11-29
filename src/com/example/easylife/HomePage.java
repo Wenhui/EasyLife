@@ -53,7 +53,7 @@ public class HomePage extends Activity implements View.OnClickListener{
             public void onItemClick(AdapterView parent, View view, int position, long id){
                 // Start your Activity according to the item just clicked.
                 String product = ((TextView) view).getText().toString(); 
-                String parameters[]  = product.split(" ");
+                String parameters[]  = product.split("	");
                 long item_id = Long.parseLong(parameters[0]);
 	            db.open();           
 				Intent bill_info = new Intent("com.example.easylife.bill_info");
@@ -61,12 +61,33 @@ public class HomePage extends Activity implements View.OnClickListener{
 				bill_info.putExtra("bill_price", db.getPrice(item_id));//Double
 				bill_info.putExtra("bill_category", db.getCategory(item_id));//String
 				bill_info.putExtra("bill_status", db.getStatus(item_id));//Boolean
+				bill_info.putExtra("bill_image", db.getImage(item_id));
+				bill_info.putExtra("bill_memo", db.getMemo(item_id));
 				bill_info.putExtra("bill_id", item_id);
 	            db.close();    
 				startActivity(bill_info);
             }
         });
         
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {  
+        	  
+            
+            public boolean onItemLongClick(AdapterView parent, View view, int position, long id){  
+                // TODO Auto-generated method stub  
+                String product = ((TextView) view).getText().toString(); 
+                String parameters[]  = product.split(" ");
+                long item_id = Long.parseLong(parameters[0]);
+                //need a dialog here
+	            db.open();           
+	            db.delete(item_id);
+	            db.close();    
+	            onResume();
+                return true;  
+            }  
+          });  
+        
+        
+
 //        TextView tv = (TextView) findViewById(R.id.tvSQLinfo);
 //        Database info = new Database(this);
 //        info.open();
@@ -112,7 +133,6 @@ public class HomePage extends Activity implements View.OnClickListener{
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
-		
 		super.onResume();
         ListView listView = (ListView) findViewById(R.id.listView);
 	    Database info = new Database(this);
@@ -125,8 +145,8 @@ public class HomePage extends Activity implements View.OnClickListener{
         // Forth - the Array of data
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
           android.R.layout.simple_list_item_1, android.R.id.text1, values);
-
         // Assign adapter to ListView
+        listView.setAdapter(adapter); 
 	}
 
 	@Override

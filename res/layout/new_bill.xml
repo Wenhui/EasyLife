@@ -1,121 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:okCancelBar="http://schemas.android.com/apk/res/com.example.android.merge">
+    
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="top"
     android:orientation="vertical" >
 
     <Button
-        android:id="@+id/ButtonNext"
-        android:layout_width="wrap_content"
+        android:id="@+id/ButtonRecord"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="Next" />
+        android:layout_marginBottom="62dp"
+        android:text="VOICE MEMO" />
 
-    <Button
-        android:id="@+id/ButtonBack"
+    <CheckBox
+        android:id="@+id/CheckBoxStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:text="Back" />
+        android:layout_above="@+id/ButtonRecord"
+        android:text="Paid" />
+
+    <Spinner
+        android:id="@+id/SpinnerCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/CheckBoxStatus"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:id="@+id/TextCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/SpinnerCategory"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="14dp"
+        android:text="Category" />
 
     <TextView
         android:id="@+id/TextBillTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/ButtonBack"
-        android:layout_below="@+id/ButtonBack"
-        android:layout_marginTop="20dp"
-        android:text="Bill Title" />
-
-    <EditText
-        android:id="@+id/editTextBillTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/CheckBoxStatus"
-        android:layout_below="@+id/TextBillTitle"
-        android:ems="10" >
+        android:layout_marginBottom="14dp"
+        android:text="Bill Title" />
 
-        <requestFocus />
-    </EditText>
+    <ImageView
+        android:id="@+id/imageViewReturnedPic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/TextCategory"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/addphoto" />
+
+    <TextView
+        android:id="@+id/TextStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/CheckBoxStatus"
+        android:layout_alignBottom="@+id/CheckBoxStatus"
+        android:layout_marginLeft="19dp"
+        android:layout_toRightOf="@+id/CheckBoxStatus"
+        android:text="Status" />
 
     <TextView
         android:id="@+id/TextPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/TextBillTitle"
-        android:layout_below="@+id/editTextBillTitle"
+        android:layout_above="@+id/imageViewReturnedPic"
+        android:layout_alignParentLeft="true"
         android:text="Price" />
 
     <EditText
         android:id="@+id/editTextPrice"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/editTextBillTitle"
-        android:layout_below="@+id/TextPrice"
+        android:layout_alignTop="@+id/imageViewReturnedPic"
+        android:layout_toLeftOf="@+id/imageViewReturnedPic"
         android:ems="10"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal" >
 
-   <TextView
-       android:id="@+id/TextCategory"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignParentLeft="true"
-       android:layout_below="@+id/editTextPrice"
-       android:text="Category" />
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/editTextBillTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/TextPrice"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:ems="10" />
 
-   <Spinner
-       android:id="@+id/SpinnerCategory"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_alignParentLeft="true"
-       android:layout_below="@+id/TextCategory" />
-
-   <TextView
-       android:id="@+id/TextStatus"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignLeft="@+id/TextPrice"
-       android:layout_below="@+id/SpinnerCategory"
-       android:text="Status" />
-
-   <CheckBox
-       android:id="@+id/CheckBoxStatus"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignBaseline="@+id/TextStatus"
-       android:layout_alignBottom="@+id/TextStatus"
-       android:layout_marginLeft="40dp"
-       android:layout_toRightOf="@+id/TextCategory"
-       android:text="Paid" />
-
-   <ImageView
-       android:id="@+id/imageViewReturnedPic"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignBottom="@+id/editTextPrice"
-       android:layout_alignParentRight="true"
-       android:layout_alignTop="@+id/editTextBillTitle"
-       android:layout_toRightOf="@+id/editTextBillTitle"
-       android:src="@drawable/easylifelog" />
-
-   <Button
-       android:id="@+id/ButtonRecord"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignLeft="@+id/TextStatus"
-       android:layout_below="@+id/CheckBoxStatus"
-       android:layout_marginTop="30dp"
-       android:text="MEMO" />
-
-   <ImageButton
-       android:id="@+id/imageButtonTakePic"
-       android:layout_width="131dp"
-       android:layout_height="wrap_content"
-       android:layout_alignBottom="@+id/ButtonRecord"
-       android:layout_toLeftOf="@+id/ButtonNext"
-       android:src="@android:drawable/btn_star" />
+    <Button
+        android:id="@+id/DatePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ButtonRecord"
+        android:layout_alignLeft="@+id/imageViewReturnedPic"
+        android:layout_marginLeft="18dp"
+        android:text="DATEPICKER" />
 
 </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+         android:layout_gravity="bottom"
+    >
+
+        <Button
+            android:id="@+id/ButtonBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="50"
+            android:text="Back" />
+
+        <Button
+             android:id = "@+id/ButtonNext"
+             android:text="Confirm"
+             android:layout_width = "wrap_content"
+             android:layout_height = "wrap_content"
+             android:layout_gravity="center"
+             android:layout_weight="50"
+        />
+    </LinearLayout>
+
+
+</merge>
