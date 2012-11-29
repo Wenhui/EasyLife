@@ -108,6 +108,15 @@
         android:layout_marginLeft="18dp"
         android:text="DATEPICKER" />
 
+    <Button
+        android:id="@+id/ButtonMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/editTextPrice"
+        android:layout_marginTop="18dp"
+        android:text="MAP" />
+
 </RelativeLayout>
 
     <LinearLayout

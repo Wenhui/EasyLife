@@ -86,6 +86,8 @@ public class NewBill extends FragmentActivity implements View.OnClickListener{
      confirm.setOnClickListener(this);
      Button datePicker = (Button)findViewById(R.id.DatePicker);
      datePicker.setOnClickListener(this);
+     Button map = (Button)findViewById(R.id.ButtonMap);
+     map.setOnClickListener(this);
      
      CheckBox checkbox = (CheckBox)findViewById(R.id.CheckBoxStatus);
      
@@ -246,6 +248,10 @@ public class NewBill extends FragmentActivity implements View.OnClickListener{
 		case R.id.imageViewReturnedPic:
 			i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 			startActivityForResult(i, CameraData);
+			break;
+		case R.id.ButtonMap:
+			mpButtonClick.start();
+			startActivity( new Intent("com.example.easylife.map"));
 			break;
 		case R.id.ButtonNext:
 			mpButtonClick.start();
