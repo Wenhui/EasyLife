@@ -1,6 +1,7 @@
 package com.example.easylife;
 
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -27,6 +28,9 @@ public class HomePage extends Activity implements View.OnClickListener{
     Button sqlGetInfo;
     Button sqlDelete;
     Database db = new Database(this);
+    
+    NotificationManager notificationManager = (NotificationManager) 
+    		  getSystemService(NOTIFICATION_SERVICE); 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

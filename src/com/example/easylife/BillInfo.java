@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +12,9 @@ import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 import android.hardware.SensorListener;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
@@ -66,12 +70,53 @@ public class BillInfo extends Activity implements OnTouchListener{
 	private float width;
 	private RectF viewRect;
 	
+	
+	
+	  private SensorManager mSensorManager;
+	  private float mAccel; // acceleration apart from gravity
+	  private float mAccelCurrent; // current acceleration including gravity
+	  private float mAccelLast; // last acceleration including gravity
+
+	  private final SensorEventListener mSensorListener = new SensorEventListener() {
+
+	    public void onSensorChanged(SensorEvent se) {
+	      float x = se.values[0];
+	      float y = se.values[1];
+	      float z = se.values[2];
+	      mAccelLast = mAccelCurrent;
+	      mAccelCurrent = (float) Math.sqrt((double) (x*x + y*y + z*z));
+	      float delta = mAccelCurrent - mAccelLast;
+	      mAccel = mAccel * 0.9f + delta; // perform low-cut filter
+	      
+	      if(mAccel > 2){
+	    	  if(((CheckBox)findViewById(R.id.CheckBoxStatus2)).isChecked() == false)
+	    	  {
+	    		  ((CheckBox)findViewById(R.id.CheckBoxStatus2)).setChecked(true);
+					savedata();
+					finish();
+	    	  }
+	      }
+	    }
+
+	    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+	    }
+	  };
+
+	
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.bill_info);
+		
+		
+		   mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+		    mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+		    mAccel = 0.00f;
+		    mAccelCurrent = SensorManager.GRAVITY_EARTH;
+		    mAccelLast = SensorManager.GRAVITY_EARTH;
+		
 	    String bill_title = getIntent().getStringExtra("bill_title");
 	    Double bill_price = getIntent().getDoubleExtra("bill_price", 0.0);
 	    String bill_category = getIntent().getStringExtra("bill_category");
@@ -108,29 +153,7 @@ public class BillInfo extends Activity implements OnTouchListener{
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-
-
-				String title = ((EditText)findViewById(R.id.editTextBillTitle2)).getText().toString();
-				String price_string = ((EditText)findViewById(R.id.editTextPrice2)).getText().toString();
-				String category = ((Spinner)findViewById(R.id.SpinnerCategory2)).getSelectedItem().toString();
-				boolean status = ((CheckBox)findViewById(R.id.CheckBoxStatus2)).isChecked();
-				
-				System.out.println("title "+title);
-				System.out.println("price_string "+price_string);
-				
-				if(title.isEmpty() || price_string.isEmpty()){
-					Dialog d = new Dialog(BillInfo.this);
-					d.setTitle("Please fill all the blanks!");
-					TextView tv = new TextView(BillInfo.this);
-					d.setContentView(tv);
-					d.show();
-				}
-				else{
-					double price = Double.parseDouble(price_string);	
-					db.open();				
-					db.updateAllInfo(bill_id, title, price, category, status);
-					db.close();	
-				}
+				savedata();
 				finish();
 			}
 		});         
@@ -360,6 +383,46 @@ public class BillInfo extends Activity implements OnTouchListener{
         sb.append("]");
         Log.d("Touch Events ---------", sb.toString());
     }	
+    
+    
+    @Override
+    protected void onResume() {
+      super.onResume();
+      mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onStop() {
+    	super.onStop();
+      mSensorManager.unregisterListener(mSensorListener);
+      
+    }
+    
+    
+    private void savedata(){
+		String title = ((EditText)findViewById(R.id.editTextBillTitle2)).getText().toString();
+		String price_string = ((EditText)findViewById(R.id.editTextPrice2)).getText().toString();
+		String category = ((Spinner)findViewById(R.id.SpinnerCategory2)).getSelectedItem().toString();
+		boolean status = ((CheckBox)findViewById(R.id.CheckBoxStatus2)).isChecked();
+		
+		System.out.println("title "+title);
+		System.out.println("price_string "+price_string);
+		
+		if(title.isEmpty() || price_string.isEmpty()){
+			Dialog d = new Dialog(BillInfo.this);
+			d.setTitle("Please fill all the blanks!");
+			TextView tv = new TextView(BillInfo.this);
+			d.setContentView(tv);
+			d.show();
+		}
+		else{
+			double price = Double.parseDouble(price_string);	
+			db.open();				
+			db.updateAllInfo(bill_id, title, price, category, status);
+			db.close();	
+		}
+    }
+    
     
 
 }
