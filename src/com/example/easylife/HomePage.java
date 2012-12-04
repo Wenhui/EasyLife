@@ -56,7 +56,7 @@ public class HomePage extends Activity implements View.OnClickListener{
                 String parameters[]  = product.split("	");
                 long item_id = Long.parseLong(parameters[0]);
 	            db.open();           
-				Intent bill_info = new Intent("com.example.easylife.bill_info");
+				Intent bill_info = new Intent("com.example.easylife.billinfo");
 				bill_info.putExtra("bill_title", db.getName(item_id));//String
 				bill_info.putExtra("bill_price", db.getPrice(item_id));//Double
 				bill_info.putExtra("bill_category", db.getCategory(item_id));//String

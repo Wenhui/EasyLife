@@ -3,12 +3,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
 import org.apache.http.util.EntityUtils;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -26,6 +28,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -36,7 +39,7 @@ import android.widget.TextView;
 import com.example.easylife.R;
 
 
-public class NewBill extends FragmentActivity implements View.OnClickListener{
+public class NewBill extends Activity implements View.OnClickListener{
 	
 	private MediaPlayer mediaPlayer;
 	private MediaRecorder recorder;
@@ -46,12 +49,24 @@ public class NewBill extends FragmentActivity implements View.OnClickListener{
     private Bitmap bmp; 
     private ImageView showpic;
     private ImageButton takepic;
+    
+	private int year;
+	private int month;
+	private int day;
+    
+    static final int DATE_DIALOG_ID = 999;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
+		
+		final Calendar c = Calendar.getInstance();
+		year = c.get(Calendar.YEAR);
+		month = c.get(Calendar.MONTH);
+		day = c.get(Calendar.DAY_OF_MONTH);
+ 
 		
 		OUTPUT_FILE = "/sdcard/"+generateFileName()+".3gp";
         setContentView(R.layout.new_bill);
@@ -86,6 +101,8 @@ public class NewBill extends FragmentActivity implements View.OnClickListener{
      confirm.setOnClickListener(this);
      Button datePicker = (Button)findViewById(R.id.DatePicker);
      datePicker.setOnClickListener(this);
+     Button map = (Button)findViewById(R.id.ButtonMap);
+     map.setOnClickListener(this);
      
      CheckBox checkbox = (CheckBox)findViewById(R.id.CheckBoxStatus);
      
@@ -247,6 +264,10 @@ public class NewBill extends FragmentActivity implements View.OnClickListener{
 			i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 			startActivityForResult(i, CameraData);
 			break;
+		case R.id.ButtonMap:
+			mpButtonClick.start();
+			startActivity( new Intent("com.example.easylife.map"));
+			break;
 		case R.id.ButtonNext:
 			mpButtonClick.start();
 			String title = ((EditText)findViewById(R.id.editTextBillTitle)).getText().toString();
@@ -286,7 +307,8 @@ public class NewBill extends FragmentActivity implements View.OnClickListener{
 			finish();
 			break;
 		case R.id.DatePicker:
-			showDatePickerDialog(null);
+//			showDatePickerDialog(null);
+			showDialog(DATE_DIALOG_ID);
 			break;
 			
 		}
@@ -340,8 +362,36 @@ public class NewBill extends FragmentActivity implements View.OnClickListener{
 		return formatDate;
 	}
 	
-	public void showDatePickerDialog(View v) {
-	    DialogFragment newFragment = new DatePickerFragment();
-	    newFragment.show(getSupportFragmentManager(), "datePicker");
+//	public void showDatePickerDialog(View v) {
+//	    DialogFragment newFragment = new DatePickerFragment();
+//	    newFragment.show(getSupportFragmentManager(), "datePicker");
+//	}
+	
+	
+ 
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case DATE_DIALOG_ID:
+		   // set date picker as current date
+		   return new DatePickerDialog(this, datePickerListener, 
+                         year, month,day);
+		}
+		return null;
 	}
+ 
+	private DatePickerDialog.OnDateSetListener datePickerListener 
+                = new DatePickerDialog.OnDateSetListener() {
+ 
+		// when dialog box is closed, below method will be called.
+		public void onDateSet(DatePicker view, int selectedYear,
+				int selectedMonth, int selectedDay) {
+			year = selectedYear;
+			month = selectedMonth;
+			day = selectedDay; 
+			Button datePicker = (Button)findViewById(R.id.DatePicker);
+			datePicker.setText("Fuck Week");
+						
+		}
+	};
 }

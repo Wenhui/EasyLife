@@ -116,7 +116,16 @@
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="41dp"
         android:layout_toLeftOf="@+id/imageViewReturnedPic"
-        android:text="Date to due />
+        android:text="Date to due" />
+
+    <Button
+        android:id="@+id/ButtonMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/editTextPrice"
+        android:layout_marginTop="18dp"
+        android:text="MAP" />
 
 </RelativeLayout>
 
