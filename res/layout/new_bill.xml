@@ -107,6 +107,16 @@
         android:layout_alignLeft="@+id/imageViewReturnedPic"
         android:layout_marginLeft="18dp"
         android:text="DATEPICKER" />
+
+    <TextView
+        android:id="@+id/DueDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/TextCategory"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="41dp"
+        android:layout_toLeftOf="@+id/imageViewReturnedPic"
+        android:text="Date to due />
 
 </RelativeLayout>
 

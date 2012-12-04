@@ -26,15 +26,16 @@ public final class R {
         public static final int nophoto=0x7f020006;
     }
     public static final class id {
-        public static final int ButtonBack=0x7f0a0022;
+        public static final int ButtonBack=0x7f0a0023;
         public static final int ButtonBack2=0x7f0a000e;
         public static final int ButtonEdit2=0x7f0a000d;
-        public static final int ButtonNext=0x7f0a0023;
+        public static final int ButtonNext=0x7f0a0024;
         public static final int ButtonRecord=0x7f0a0017;
         public static final int ButtonRecord2=0x7f0a000c;
         public static final int CheckBoxStatus=0x7f0a0018;
         public static final int CheckBoxStatus2=0x7f0a000b;
         public static final int DatePicker=0x7f0a0021;
+        public static final int DueDate=0x7f0a0022;
         public static final int SpinnerCategory=0x7f0a0019;
         public static final int SpinnerCategory2=0x7f0a0009;
         public static final int TextBillTitle=0x7f0a001b;
@@ -60,7 +61,7 @@ public final class R {
         public static final int imageViewReturnedPic=0x7f0a001c;
         public static final int imageViewReturnedPic2=0x7f0a0003;
         public static final int listView=0x7f0a0014;
-        public static final int menu_settings=0x7f0a0024;
+        public static final int menu_settings=0x7f0a0025;
         public static final int textView1=0x7f0a0001;
         public static final int textView2=0x7f0a0000;
     }
