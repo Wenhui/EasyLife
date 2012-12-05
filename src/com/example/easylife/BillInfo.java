@@ -2,23 +2,20 @@ package com.example.easylife;
 
 import java.io.ByteArrayOutputStream;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.PointF;
-import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
-import android.hardware.SensorListener;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.util.FloatMath;
 import android.util.Log;
@@ -33,12 +30,12 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+@SuppressLint("FloatMath")
 public class BillInfo extends Activity implements OnTouchListener{
 	
 	long bill_id;
 	Database db = new Database(this);
 	private MediaPlayer mediaPlayer;
-	private MediaRecorder recorder;
 	private String OUTPUT_FILE;
 	
 	ImageView myimage;
@@ -63,44 +60,46 @@ public class BillInfo extends Activity implements OnTouchListener{
     float oldDist = 1f;
 
 	// Limit zoomable/pannable image
-	private float[] matrixValues = new float[9];
-	private float maxZoom;
-	private float minZoom;
-	private float height;
-	private float width;
-	private RectF viewRect;
+//	private float[] matrixValues = new float[9];
+//	private float maxZoom;
+//	private float minZoom;
+//	private float height;
+//	private float width;
+//	private RectF viewRect;
 	
 	
 	
-	  private SensorManager mSensorManager;
-	  private float mAccel; // acceleration apart from gravity
-	  private float mAccelCurrent; // current acceleration including gravity
-	  private float mAccelLast; // last acceleration including gravity
+	private SensorManager mSensorManager;
+	private float mAccel; // acceleration apart from gravity
+	private float mAccelCurrent; // current acceleration including gravity
+	private float mAccelLast; // last acceleration including gravity
 
-	  private final SensorEventListener mSensorListener = new SensorEventListener() {
+	private final SensorEventListener mSensorListener = new SensorEventListener() {
 
-	    public void onSensorChanged(SensorEvent se) {
-	      float x = se.values[0];
-	      float y = se.values[1];
-	      float z = se.values[2];
-	      mAccelLast = mAccelCurrent;
-	      mAccelCurrent = (float) Math.sqrt((double) (x*x + y*y + z*z));
-	      float delta = mAccelCurrent - mAccelLast;
-	      mAccel = mAccel * 0.9f + delta; // perform low-cut filter
-	      
-	      if(mAccel > 2){
-	    	  if(((CheckBox)findViewById(R.id.CheckBoxStatus2)).isChecked() == false)
-	    	  {
-	    		  ((CheckBox)findViewById(R.id.CheckBoxStatus2)).setChecked(true);
-					savedata();
-					finish();
-	    	  }
-	      }
-	    }
+		public void onSensorChanged(SensorEvent se) {
+			float x = se.values[0];
+			float y = se.values[1];
+			float z = se.values[2];
+			mAccelLast = mAccelCurrent;
+			mAccelCurrent = (float) Math.sqrt((double) (x*x + y*y + z*z));
+			float delta = mAccelCurrent - mAccelLast;
+			mAccel = mAccel * 0.9f + delta; // perform low-cut filter
+	  
+			if(mAccel > 2){
+				if(((CheckBox)findViewById(R.id.CheckBoxStatus2)).isChecked() == false)
+				{
+				((CheckBox)findViewById(R.id.CheckBoxStatus2)).setChecked(true);
+				savedata();
+				finish();
+				}
+				}
+			}
 
 	    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+	    	
+	    	
 	    }
-	  };
+	};
 
 	
     
@@ -111,11 +110,11 @@ public class BillInfo extends Activity implements OnTouchListener{
 		setContentView(R.layout.bill_info);
 		
 		
-		   mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-		    mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
-		    mAccel = 0.00f;
-		    mAccelCurrent = SensorManager.GRAVITY_EARTH;
-		    mAccelLast = SensorManager.GRAVITY_EARTH;
+	    mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+	    mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+	    mAccel = 0.00f;
+	    mAccelCurrent = SensorManager.GRAVITY_EARTH;
+	    mAccelLast = SensorManager.GRAVITY_EARTH;
 		
 	    String bill_title = getIntent().getStringExtra("bill_title");
 	    Double bill_price = getIntent().getDoubleExtra("bill_price", 0.0);
@@ -133,14 +132,14 @@ public class BillInfo extends Activity implements OnTouchListener{
 	    
 	    	
 
-       Spinner spinner = (Spinner) findViewById(R.id.SpinnerCategory2);
-       // Create an ArrayAdapter using the string array and a default spinner layout
-       ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        Spinner spinner = (Spinner) findViewById(R.id.SpinnerCategory2);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                R.array.category, android.R.layout.simple_spinner_item);
-       // Specify the layout to use when the list of choices appears
-       adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-       // Apply the adapter to the spinner
-       spinner.setAdapter(adapter);	
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);	
 
         ((EditText)findViewById(R.id.editTextBillTitle2)).setText(bill_title);
         ((EditText)findViewById(R.id.editTextPrice2)).setText(bill_price.toString());
@@ -148,9 +147,8 @@ public class BillInfo extends Activity implements OnTouchListener{
         spinner.setSelection(category_id);
         ((CheckBox)findViewById(R.id.CheckBoxStatus2)).setChecked(bill_status);
         
-      Button edit = (Button) findViewById (R.id.ButtonEdit2);
-      edit.setOnClickListener(new View.OnClickListener() {
-			
+        Button edit = (Button) findViewById (R.id.ButtonEdit2);
+        edit.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				savedata();
@@ -159,8 +157,8 @@ public class BillInfo extends Activity implements OnTouchListener{
 		});         
         
       
-      Button back = (Button) findViewById (R.id.ButtonBack2);
-      back.setOnClickListener(new View.OnClickListener() {
+        Button back = (Button) findViewById (R.id.ButtonBack2);
+        back.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -168,8 +166,8 @@ public class BillInfo extends Activity implements OnTouchListener{
 			}
 		});    
       
-      Button play = (Button) findViewById (R.id.ButtonRecord2);
-      play.setOnClickListener(new View.OnClickListener() {
+        Button play = (Button) findViewById (R.id.ButtonRecord2);
+        play.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -200,43 +198,10 @@ public class BillInfo extends Activity implements OnTouchListener{
 				mediaPlayer.prepare();
 				mediaPlayer.start();
 			}
-
-			private void stopPlayingRecording() throws Exception 
-			{
-				if(mediaPlayer!=null)
-				{
-					mediaPlayer.stop();
-				}
-			}
-		});  
-        
-//
-//        ((TextView)findViewById(R.id.TextBillTitleDisplay)).append(bill_title);
-//        ((TextView)findViewById(R.id.TextPriceDisplay)).append(bill_price.toString());
-//        ((TextView)findViewById(R.id.TextCategoryDisplay)).append(bill_category);
-//        if (bill_status == true){
-//        	 ((TextView)findViewById(R.id.TextStatusDisplay)).append("Paid");        		 
-//        }
-//        else{
-//        	((TextView)findViewById(R.id.TextStatusDisplay)).append("Unpaid");     
-//        }
-//        
-//        final MediaPlayer mpButtonClick = MediaPlayer.create(this, R.raw.button);
-//        
-//        Button confirm = (Button) findViewById (R.id.button_confirm);
-//        confirm.setOnClickListener(new View.OnClickListener() {
-//			
-//			public void onClick(View v) {
-//				// TODO Auto-generated method stub
-//				
-//				startActivity( new Intent("com.example.easylife.homepage"));
-//				mpButtonClick.start();
-//			}
-//		});        
+		});       
 	}
 	
 	public static byte[] drawableToByteArray(Bitmap d) {
-
 	    if (d != null) {
 	        ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	        d.compress(Bitmap.CompressFormat.PNG, 100, baos);
@@ -245,7 +210,6 @@ public class BillInfo extends Activity implements OnTouchListener{
 	        return byteData;
 	    } else
 	        return null;
-
 	}
 
 
@@ -422,7 +386,13 @@ public class BillInfo extends Activity implements OnTouchListener{
 			db.close();	
 		}
     }
-    
-    
-
 }
+
+
+//private void stopPlayingRecording() throws Exception 
+//{
+//	if(mediaPlayer!=null)
+//	{
+//		mediaPlayer.stop();
+//	}
+//}

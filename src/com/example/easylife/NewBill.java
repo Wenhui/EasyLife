@@ -7,8 +7,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
-import org.apache.http.util.EntityUtils;
-
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -16,20 +14,15 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
-import android.text.format.DateFormat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.EditText;
@@ -47,9 +40,9 @@ public class NewBill extends Activity implements View.OnClickListener{
 	private  String OUTPUT_FILE;
     private Intent i;
     final static int CameraData = 0;
+    final static int MapData = 1;
     private Bitmap bmp; 
     private ImageView showpic;
-    private ImageButton takepic;
     
 	private int year;
 	private int month;
@@ -80,59 +73,50 @@ public class NewBill extends Activity implements View.OnClickListener{
         setContentView(R.layout.new_bill);
         InputStream is = getResources().openRawResource(R.drawable.nophoto);
         bmp = BitmapFactory.decodeStream(is);
-       final MediaPlayer mpButtonClick = MediaPlayer.create(this, R.raw.button);
+        final MediaPlayer mpButtonClick = MediaPlayer.create(this, R.raw.button);
              
-       
-
+ 
         Spinner spinner = (Spinner) findViewById(R.id.SpinnerCategory);
+	     // Create an ArrayAdapter using the string array and a default spinner layout
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+				R.array.category, android.R.layout.simple_spinner_item);
+		// Specify the layout to use when the list of choices appears
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		// Apply the adapter to the spinner
+		spinner.setAdapter(adapter);
 
-        
-     // Create an ArrayAdapter using the string array and a default spinner layout
-     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-             R.array.category, android.R.layout.simple_spinner_item);
-     // Specify the layout to use when the list of choices appears
-     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-     // Apply the adapter to the spinner
-     spinner.setAdapter(adapter);
-
+	 
+	    showpic = (ImageView) findViewById (R.id.imageViewReturnedPic);
+	    showpic.setOnClickListener(this);
+	    
+	     
+	    Button back = (Button)findViewById(R.id.ButtonBack);
+	    back.setOnClickListener(this);
+	    Button confirm = (Button)findViewById(R.id.ButtonNext);
+	    confirm.setOnClickListener(this);
+	    Button datePicker = (Button)findViewById(R.id.DatePicker);
+	    datePicker.setOnClickListener(this);
+	    Button map = (Button)findViewById(R.id.ButtonMap);
+	    map.setOnClickListener(this);
      
-     showpic = (ImageView) findViewById (R.id.imageViewReturnedPic);
-     showpic.setOnClickListener(this);
-     
-//     takepic = (ImageButton) findViewById (R.id.imageButtonTakePic);
-     
-//     takepic.setOnClickListener(this);
-     
-     Button back = (Button)findViewById(R.id.ButtonBack);
-     back.setOnClickListener(this);
-     Button confirm = (Button)findViewById(R.id.ButtonNext);
-     confirm.setOnClickListener(this);
-     Button datePicker = (Button)findViewById(R.id.DatePicker);
-     datePicker.setOnClickListener(this);
-     Button map = (Button)findViewById(R.id.ButtonMap);
-     map.setOnClickListener(this);
-     
-     CheckBox checkbox = (CheckBox)findViewById(R.id.CheckBoxStatus);
-     
-     checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-		
-		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-			// TODO Auto-generated method stub
-			Button datePicker = (Button)findViewById(R.id.DatePicker);
-			if(isChecked == true){
-				datePicker.setVisibility(4);//Invisible
+	    CheckBox checkbox = (CheckBox)findViewById(R.id.CheckBoxStatus);
+	    checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				// TODO Auto-generated method stub
+				Button datePicker = (Button)findViewById(R.id.DatePicker);
+				if(isChecked == true){
+					datePicker.setVisibility(4);//Invisible
+				}
+				else{
+					datePicker.setVisibility(0);//Visible
+				}
 			}
-			else{
-				datePicker.setVisibility(0);//Visible
-			}
-		}
-	});
-     
-     Button recordStart = (Button) findViewById (R.id.ButtonRecord);
+	    });
+	    
+	    Button recordStart = (Button) findViewById (R.id.ButtonRecord);
      
      
-     recordStart.setOnTouchListener(new View.OnTouchListener() {
-
+	    recordStart.setOnTouchListener(new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
 				switch(event.getAction() & MotionEvent.ACTION_MASK) {
@@ -159,7 +143,7 @@ public class NewBill extends Activity implements View.OnClickListener{
 						return false;
 		      }
 			}
-    	  });     
+	    });     
 	}
 
 	@Override
@@ -260,13 +244,7 @@ public class NewBill extends Activity implements View.OnClickListener{
 		mediaPlayer.start();
 	}
 
-	private void stopPlayingRecording() throws Exception 
-	{
-		if(mediaPlayer!=null)
-		{
-			mediaPlayer.stop();
-		}
-	}
+
 
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -278,7 +256,7 @@ public class NewBill extends Activity implements View.OnClickListener{
 			break;
 		case R.id.ButtonMap:
 			mpButtonClick.start();
-			startActivity( new Intent("com.example.easylife.map"));
+			startActivityForResult( new Intent("com.example.easylife.map"), MapData);
 			break;
 		case R.id.ButtonNext:
 			mpButtonClick.start();
@@ -304,22 +282,23 @@ public class NewBill extends Activity implements View.OnClickListener{
 				entry.open();
 				entry.createEntry(title, price, category, status, image, OUTPUT_FILE , year + "_" + month + "_" + day, getNowDateTime());
 				entry.close();
-				
-//				Intent toConfirm = new Intent("com.example.easylife.confirm");
-//				toConfirm.putExtra("bill_title", title);//String
-//				toConfirm.putExtra("bill_price", price);//Double
-//				toConfirm.putExtra("bill_category", category);//String
-//				toConfirm.putExtra("bill_status", status);//Boolean
-//				startActivity(toConfirm);
+		      	Calendar c = Calendar.getInstance();
+		      	c.set(year, month, day);
+		      	c.set(Calendar.HOUR_OF_DAY, 0);
+		      	c.set(Calendar.MINUTE, 0);
+		      	c.set(Calendar.SECOND, 0);
+		      	// Ask our service to set an alarm for that date, this activity talks to the client that talks to the service
+		      	scheduleClient.setAlarmForNotification(c);
+		      	// Notify the user what they just did
+		    	Toast.makeText(NewBill.this, "Notification set for: "+ day +"/"+ (month+1) +"/"+ year, Toast.LENGTH_SHORT).show();
 				finish();
-			}							
+			}	
 			break;
 		case R.id.ButtonBack:
 			mpButtonClick.start();
 			finish();
 			break;
 		case R.id.DatePicker:
-//			showDatePickerDialog(null);
 			showDialog(DATE_DIALOG_ID);
 			break;
 			
@@ -330,12 +309,31 @@ public class NewBill extends Activity implements View.OnClickListener{
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
+		switch(requestCode) {
+		
+		case (CameraData): {
 		if(resultCode == RESULT_OK) {
 			Bundle extras = data.getExtras();
 			bmp = (Bitmap) extras.get("data");
 			showpic.setImageBitmap(bmp);
 		}
+		break;
+		}
+		case(MapData): {
+			 if (resultCode == Activity.RESULT_OK) {
+			        // TODO Extract the data returned from the child Activity.
+				 
+				 String location = data.getStringExtra("location");
+				 
+				 TextView l = (TextView)findViewById(R.id.location);
+				 l.setText(location);
+				 
+			      }
+			 break;
+		}
 	}
+	}
+
 	
 	
 	public static byte[] drawableToByteArray(Bitmap d) {
@@ -374,13 +372,7 @@ public class NewBill extends Activity implements View.OnClickListener{
 		return formatDate;
 	}
 	
-//	public void showDatePickerDialog(View v) {
-//	    DialogFragment newFragment = new DatePickerFragment();
-//	    newFragment.show(getSupportFragmentManager(), "datePicker");
-//	}
-	
-	
- 
+
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		switch (id) {
@@ -391,30 +383,25 @@ public class NewBill extends Activity implements View.OnClickListener{
 		}
 		return null;
 	}
- 
+
 	protected DatePickerDialog.OnDateSetListener datePickerListener 
                 = new DatePickerDialog.OnDateSetListener() {
- 
-		// when dialog box is closed, below method will be called.
 		public void onDateSet(DatePicker view, int selectedYear,
 				int selectedMonth, int selectedDay) {
 			
 			year = selectedYear;
 			month = selectedMonth;
 			day = selectedDay; 
-			
-	      	Calendar c = Calendar.getInstance();
-	      	c.set(year, month, day);
-	      	c.set(Calendar.HOUR_OF_DAY, 0);
-	      	c.set(Calendar.MINUTE, 0);
-	      	c.set(Calendar.SECOND, 0);
-	      	// Ask our service to set an alarm for that date, this activity talks to the client that talks to the service
-	      	scheduleClient.setAlarmForNotification(c);
-	      	// Notify the user what they just did
-	    	Toast.makeText(NewBill.this, "Notification set for: "+ day +"/"+ (month+1) +"/"+ year, Toast.LENGTH_SHORT).show();
-//			Button datePicker = (Button)findViewById(R.id.DatePicker);
-//			datePicker.setText("Fuck Week");
 						
 		}
 	};
 }
+
+
+//private void stopPlayingRecording() throws Exception 
+//{
+//	if(mediaPlayer!=null)
+//	{
+//		mediaPlayer.stop();
+//	}
+//}

@@ -14,5 +14,7 @@
         <item >Rent</item>
         <item >Cloth</item>
     </string-array>
+    <string name="ok">OK</string>
+    <string name="cancel ">CANCEL</string>
 
 </resources>

@@ -5,6 +5,7 @@
     > 
 <com.google.android.maps.MapView
 	android:id="@+id/MapView01"
+	android:clickable="true"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:apiKey="05Mrc2j_p925Z9pskGO7RfyP8z-m9xz2qcRrNWA"/>
@@ -12,6 +13,15 @@
 <TextView
     android:id="@+id/MapLocation"
     android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>
+
+<Button
+    android:id="@+id/ConfirmLocation"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="hello" />
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentRight="true"
+    android:layout_marginBottom="54dp"
+    android:text="Confirm" />
+
 </RelativeLayout> 

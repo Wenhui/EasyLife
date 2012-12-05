@@ -1,16 +1,10 @@
 package com.example.easylife;
-import java.io.File;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.easylife.R;

@@ -7,7 +7,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class Database {
@@ -270,15 +269,8 @@ public class Database {
 		String categories[] = {"Food","Education","Gas","Rent","Cloth"};
 		
 		
-		int iRow = c.getColumnIndex(KEY_ROWID);
-	//	int iTitle = c.getColumnIndex(KEY_TITLE);
-	//	int iDate = c.getColumnIndex(KEY_DATE);
 		int iPrice= c.getColumnIndex(KEY_PRICE);
 		int iCategory = c.getColumnIndex(KEY_CATEGORY);
-	//	int iStatus = c.getColumnIndex(KEY_STATUS);
-	//	int iImage = c.getColumnIndex(KEY_IMAGE);
-		int i = 0;
-		
 		for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
 
 			if(c.getString(iCategory).equalsIgnoreCase("Food")){
