@@ -71,7 +71,7 @@
 
        
         <activity
-            android:name=".Bill_info"
+            android:name=".BillInfo"
             android:label="BILL_INFO" >
             <intent-filter>
                 <action android:name="com.example.easylife.bill_info" />

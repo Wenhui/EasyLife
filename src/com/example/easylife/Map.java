@@ -2,14 +2,20 @@ package com.example.easylife;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
@@ -21,18 +27,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import com.google.android.maps.GeoPoint;
+import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
+import com.google.android.maps.OverlayItem;
 
 public class Map extends MapActivity 
 {
 	public MapController mapController;
     public MyLocationOverlay myPosition;
+//    public GeoPoint NobHill;
     public MapView myMapView;
     private static final int ZOOM_IN=Menu.FIRST; 
     private static final int ZOOM_OUT=Menu.FIRST+1;
+    private HelloItemizedOverlay itemizedoverlay;
 
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,12 +56,14 @@ public class Map extends MapActivity
         mapController=myMapView.getController();
         //set mode to satellite
         myMapView.setSatellite(true);
-        myMapView.displayZoomControls(false);   
-        //set zooming mode and use MyLicationOverlay to dram map
+        myMapView.displayZoomControls(true);  //set zooming mode and use MyLicationOverlay to draw map
+        myMapView.setBuiltInZoomControls(true);   // Set android:clickable=true in main.xml
         mapController.setZoom(17);
         myPosition=new MyLocationOverlay();
         List<Overlay> overlays=myMapView.getOverlays();
         overlays.add(myPosition);
+//        NobHill = new GeoPoint(0, 0);
+//        OverlayItem overlayitemNobHill = new OverlayItem(NobHill, "", "");
         //set criteria information
         Criteria criteria =new Criteria();
         //latitude requirement
@@ -69,6 +81,33 @@ public class Map extends MapActivity
         //set to update every 3000ms
         //locationListener
         locationManager.requestLocationUpdates(provider, 3000, 0,locationListener);
+        
+        List<Overlay> mapOverlays = myMapView.getOverlays();
+        Drawable drawable = this.getResources().getDrawable(R.drawable.map);
+        itemizedoverlay = new HelloItemizedOverlay(drawable, this);
+        
+        GeoPoint point = new GeoPoint(37378364,-122076469);
+        OverlayItem overlayitem = new OverlayItem(point, "Nob Hill", "Food Market");
+        
+        GeoPoint point2 = new GeoPoint(37378257,-122076093);
+        OverlayItem overlayitem2 = new OverlayItem(point2, "US Post Office", "Post Office");
+        
+        itemizedoverlay.addOverlay(overlayitem);
+        itemizedoverlay.addOverlay(overlayitem2);
+        mapOverlays.add(itemizedoverlay);
+        
+//        if (itemizedoverlay.getFlag() == true) {
+//        	startActivity( new Intent("com.example.easylife.add"));
+//        }
+        
+        System.out.println(itemizedoverlay.getFlag());
+        
+//        while (itemizedoverlay.getFlag() == false) {
+//        	continue;
+//        }
+//        
+//        startActivity( new Intent("com.example.easylife.add"));
+        
     }
     private void updateWithNewLocation(Location location) 
     {
@@ -146,8 +185,8 @@ public class Map extends MapActivity
     public boolean onCreateOptionsMenu(Menu menu)
 	{
 		super.onCreateOptionsMenu(menu);
-		menu.add(0, ZOOM_IN, Menu.NONE, "·Å´ó");
-		menu.add(0, ZOOM_OUT, Menu.NONE, "ËõÐ¡");
+		menu.add(0, ZOOM_IN, Menu.NONE, "zoom in");
+		menu.add(0, ZOOM_OUT, Menu.NONE, "zoom out");
 		return true;
 	}
     public boolean onOptionsItemSelected(MenuItem item)
@@ -194,4 +233,100 @@ public class Map extends MapActivity
 			return true;
 		}
 	}
+	
+	class HelloItemizedOverlay extends ItemizedOverlay{
+		
+		private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
+		Context mContext;
+		public boolean flag = false;
+		
+		
+		
+//	    public interface NoticeDialogListener {
+//	        public void onDialogPositiveClick(AlertDialog.Builder dialog);
+//	        public void onDialogNegativeClick(AlertDialog.Builder dialog);
+//	    }
+	//    
+//	    // Use this instance of the interface to deliver action events
+//	    NoticeDialogListener mListener;
+
+		public boolean getFlag() {
+			return flag;
+		}
+
+
+
+		public HelloItemizedOverlay(Drawable defaultMarker) {
+			  super(boundCenterBottom(defaultMarker));
+		}
+		
+		public HelloItemizedOverlay(Drawable defaultMarker, Context context) {
+			  super(boundCenterBottom(defaultMarker));
+			  mContext = context;
+		}
+		
+		public void addOverlay(OverlayItem overlay) {
+		    mOverlays.add(overlay);
+		    populate();
+		}
+
+		@Override
+		protected OverlayItem createItem(int i) {
+		  return mOverlays.get(i);
+		}
+
+		@Override
+		public int size() {
+		  return mOverlays.size();
+		}
+		
+		@Override
+		protected boolean onTap(int index) {
+		  OverlayItem item = mOverlays.get(index);
+		  AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
+		  dialog.setTitle(item.getTitle());
+		  dialog.setMessage(item.getSnippet())
+			  .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+		          public void onClick(DialogInterface dialog, int id) {
+		              // User confirm the dialog
+//		        	  mListener.onDialogPositiveClick(d.this);
+//		      		  startActivity( new Intent("com.example.easylife.add"));
+		        	  flag = true;
+		        	  System.out.println("user entered: " + flag);
+
+		        	  
+		          }
+		      })
+		      .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+		          public void onClick(DialogInterface dialog, int id) {
+		              // User cancelled the dialog
+		        	  
+		          }
+		      });;
+		  dialog.show();
+		  
+		  return true;
+		}
+		
+//		 @Override
+//		    public Dialog onCreateDialog(Bundle savedInstanceState) {
+//		        // Use the Builder class for convenient dialog construction
+//		        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//		        builder.setMessage(R.string.dialog_fire_missiles)
+//		               .setPositiveButton(R.string.fire, new DialogInterface.OnClickListener() {
+//		                   public void onClick(DialogInterface dialog, int id) {
+//		                       // FIRE ZE MISSILES!
+//		                   }
+//		               })
+//		               .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+//		                   public void onClick(DialogInterface dialog, int id) {
+//		                       // User cancelled the dialog
+//		                   }
+//		               });
+//		        // Create the AlertDialog object and return it
+//		        return builder.create();
+//		    }
+
+	}
+
 }
