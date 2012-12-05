@@ -1,5 +1,7 @@
 package com.example.easylife;
 
+import java.text.DecimalFormat;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -104,15 +106,23 @@ public class Database {
 		int iDate = c.getColumnIndex(KEY_DATE);
 //		int iPrice= c.getColumnIndex(KEY_PRICE);
 //		int iCategory = c.getColumnIndex(KEY_CATEGORY);
-//		int iStatus = c.getColumnIndex(KEY_STATUS);
+		int iStatus = c.getColumnIndex(KEY_STATUS);
 //		int iImage = c.getColumnIndex(KEY_IMAGE);
 		int i = 0;
 		
 		for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
 //			result = result + c.getString(iRow) + " " + c.getString(iTitle) + " " + c.getString(iPrice) + " " + c.getString(iCategory)
 //+ " " + c.getString(iStatus) + "\n";
-			result[i++] = c.getString(iRow) + "	" + c.getString(iTitle) + "	" + c.getString(iDate);
+			if(c.getInt(iStatus) == 0)
+			{
+				String temp [] = c.getString(iDate).split("_");
+				result[i++] = c.getString(iRow) + "	" + c.getString(iTitle) + "	" + String.valueOf(Integer.parseInt(temp[1]) + 1) + "/" + temp[2] + "/" + temp[0];
 			}
+			else
+			{
+				result[i++] = c.getString(iRow) + "	" + c.getString(iTitle);
+			}
+		}
 		return result;
 	}
 
@@ -244,5 +254,63 @@ public class Database {
 	public void delete(long lRow1) {
 		// TODO Auto-generated method stub
 		ourDatabase.delete(DATABASE_TABLE, KEY_ROWID + "=" + lRow1, null);	
+	}
+	
+	
+	public String [] getStatisticInfo(){
+		
+		// TODO Auto-generated method stub
+		String[] columns = new String[]{
+				KEY_ROWID, KEY_TITLE, KEY_PRICE, KEY_CATEGORY, KEY_STATUS, KEY_IMAGE, KEY_MEMO, KEY_DATE, KEY_ALERT
+		};
+		Cursor c = ourDatabase.query(DATABASE_TABLE, columns, null, null, null, null, null,null);
+		String result [] = new String [6];
+		double prices [] = new double [5];
+		double percentages [] = new double [5];
+		String categories[] = {"Food","Education","Gas","Rent","Cloth"};
+		
+		
+		int iRow = c.getColumnIndex(KEY_ROWID);
+	//	int iTitle = c.getColumnIndex(KEY_TITLE);
+	//	int iDate = c.getColumnIndex(KEY_DATE);
+		int iPrice= c.getColumnIndex(KEY_PRICE);
+		int iCategory = c.getColumnIndex(KEY_CATEGORY);
+	//	int iStatus = c.getColumnIndex(KEY_STATUS);
+	//	int iImage = c.getColumnIndex(KEY_IMAGE);
+		int i = 0;
+		
+		for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+
+			if(c.getString(iCategory).equalsIgnoreCase("Food")){
+				prices[0] += c.getDouble(iPrice);
+			}
+			else if(c.getString(iCategory).equalsIgnoreCase("Education")){
+				prices[1] += c.getDouble(iPrice);
+			}
+			else if(c.getString(iCategory).equalsIgnoreCase("Gas")){
+				prices[2] += c.getDouble(iPrice);
+			}
+			else if(c.getString(iCategory).equalsIgnoreCase("Rent")){
+				prices[3] += c.getDouble(iPrice);
+			}
+			else if(c.getString(iCategory).equalsIgnoreCase("Cloth")){
+				prices[4] += c.getDouble(iPrice);
+			}
+		}
+		
+		double total = prices[0] + prices[1] + prices[2] + prices[3] + prices[4];
+		DecimalFormat transfer = new DecimalFormat( "#"); 
+		for(int ii = 0; ii < 5; ii++){
+			percentages [ii] = prices[ii] / total;
+		}
+
+		result[0] = "Cat.           Per.       Tot."; 
+		result[1] = categories[0] + "         " + transfer.format(percentages[0] * 100)  + "%      $" + transfer.format(prices[0]); 
+		result[2] = categories[1] + "  " + transfer.format(percentages[1] * 100)  + "%        $" + transfer.format(prices[1]); 
+		result[3] = categories[2] + "            " + transfer.format(percentages[2] * 100)  + "%        $" + transfer.format(prices[2]); 
+		result[4] = categories[3] + "           " + transfer.format(percentages[3] * 100)  + "%        $" + transfer.format(prices[3]); 
+		result[5] = categories[4] + "          " + transfer.format(percentages[4] * 100)  + "%        $" + transfer.format(prices[4]); 
+
+		return result;		
 	}
 }

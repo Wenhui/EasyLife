@@ -55,6 +55,7 @@ public final class R {
         public static final int TextStatus2=0x7f0a000a;
         public static final int TextStatusDisplay=0x7f0a0012;
         public static final int TextView01=0x7f0a0002;
+        public static final int back_button=0x7f0a0028;
         public static final int button_add=0x7f0a0015;
         public static final int button_confirm=0x7f0a0013;
         public static final int button_report=0x7f0a0016;
@@ -65,7 +66,8 @@ public final class R {
         public static final int imageViewReturnedPic=0x7f0a001e;
         public static final int imageViewReturnedPic2=0x7f0a0003;
         public static final int listView=0x7f0a0014;
-        public static final int menu_settings=0x7f0a0028;
+        public static final int listView_report=0x7f0a0029;
+        public static final int menu_settings=0x7f0a002a;
         public static final int textView1=0x7f0a0001;
         public static final int textView2=0x7f0a0000;
     }
@@ -76,6 +78,7 @@ public final class R {
         public static final int homepage=0x7f030003;
         public static final int map=0x7f030004;
         public static final int new_bill=0x7f030005;
+        public static final int report=0x7f030006;
     }
     public static final class menu {
         public static final int activity_main=0x7f090000;

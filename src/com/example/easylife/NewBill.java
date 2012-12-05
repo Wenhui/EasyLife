@@ -35,6 +35,7 @@ import android.widget.Spinner;
 import android.widget.EditText;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.easylife.R;
 
@@ -53,6 +54,8 @@ public class NewBill extends Activity implements View.OnClickListener{
 	private int year;
 	private int month;
 	private int day;
+	
+    private ScheduleClient scheduleClient;
     
     static final int DATE_DIALOG_ID = 999;
 	
@@ -60,6 +63,11 @@ public class NewBill extends Activity implements View.OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		
+		
+        // Create a new service client and bind our activity to this service
+        scheduleClient = new ScheduleClient(this);
+        scheduleClient.doBindService();
 		
 		
 		final Calendar c = Calendar.getInstance();
@@ -189,6 +197,10 @@ public class NewBill extends Activity implements View.OnClickListener{
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub
+    	// When our activity is stopped ensure we also stop the connection to the service
+    	// this stops us leaking our activity into the system *bad*
+    	if(scheduleClient != null)
+    		scheduleClient.doUnbindService();
 		super.onStop();
 	}
 	
@@ -290,7 +302,7 @@ public class NewBill extends Activity implements View.OnClickListener{
 				double price = Double.parseDouble(price_string);	
 				Database entry = new Database(NewBill.this);
 				entry.open();
-				entry.createEntry(title, price, category, status, image, OUTPUT_FILE ,getNowDateTime(),getNowDateTime());
+				entry.createEntry(title, price, category, status, image, OUTPUT_FILE , year + "_" + month + "_" + day, getNowDateTime());
 				entry.close();
 				
 //				Intent toConfirm = new Intent("com.example.easylife.confirm");
@@ -380,17 +392,28 @@ public class NewBill extends Activity implements View.OnClickListener{
 		return null;
 	}
  
-	private DatePickerDialog.OnDateSetListener datePickerListener 
+	protected DatePickerDialog.OnDateSetListener datePickerListener 
                 = new DatePickerDialog.OnDateSetListener() {
  
 		// when dialog box is closed, below method will be called.
 		public void onDateSet(DatePicker view, int selectedYear,
 				int selectedMonth, int selectedDay) {
+			
 			year = selectedYear;
 			month = selectedMonth;
 			day = selectedDay; 
-			Button datePicker = (Button)findViewById(R.id.DatePicker);
-			datePicker.setText("Fuck Week");
+			
+	      	Calendar c = Calendar.getInstance();
+	      	c.set(year, month, day);
+	      	c.set(Calendar.HOUR_OF_DAY, 0);
+	      	c.set(Calendar.MINUTE, 0);
+	      	c.set(Calendar.SECOND, 0);
+	      	// Ask our service to set an alarm for that date, this activity talks to the client that talks to the service
+	      	scheduleClient.setAlarmForNotification(c);
+	      	// Notify the user what they just did
+	    	Toast.makeText(NewBill.this, "Notification set for: "+ day +"/"+ (month+1) +"/"+ year, Toast.LENGTH_SHORT).show();
+//			Button datePicker = (Button)findViewById(R.id.DatePicker);
+//			datePicker.setText("Fuck Week");
 						
 		}
 	};

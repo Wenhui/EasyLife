@@ -1,7 +1,12 @@
 package com.example.easylife;
 
+import java.util.Calendar;
+
 import android.app.Activity;
+import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -14,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class HomePage extends Activity implements View.OnClickListener{
 	
@@ -29,8 +35,11 @@ public class HomePage extends Activity implements View.OnClickListener{
     Button sqlDelete;
     Database db = new Database(this);
     
-    NotificationManager notificationManager = (NotificationManager) 
-    		  getSystemService(NOTIFICATION_SERVICE); 
+    
+//    private ScheduleClient scheduleClient;
+    
+//    NotificationManager notificationManager = (NotificationManager) 
+//    		  getSystemService(NOTIFICATION_SERVICE); 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +47,17 @@ public class HomePage extends Activity implements View.OnClickListener{
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.homepage);
         
+
         ListView listView = (ListView) findViewById(R.id.listView);
 	    Database info = new Database(this);
 	    info.open();
 	    String[] values = info.getData();
 	    info.close();
+	    
+	    for(int i = 0; i < values.length; i++){
+	    	String temp[] = values[i].split("	", 2);
+	    	values[i] = temp[1];
+	    }
         // First paramenter - Context
         // Second parameter - Layout for the row
         // Third parameter - ID of the TextView to which the data is written
@@ -57,8 +72,20 @@ public class HomePage extends Activity implements View.OnClickListener{
             public void onItemClick(AdapterView parent, View view, int position, long id){
                 // Start your Activity according to the item just clicked.
                 String product = ((TextView) view).getText().toString(); 
-                String parameters[]  = product.split("	");
-                long item_id = Long.parseLong(parameters[0]);
+                long item_id = -1;
+                
+        	    db.open();
+        	    String[] values_temp = db.getData();
+        	    db.close();
+        	    String temp[] = new String [2];
+        	    for(int i = 0; i < values_temp.length; i++){
+        	    	temp = values_temp[i].split("	", 2);
+        	    	if(temp[1].equalsIgnoreCase(product)){
+                        String parameters[]  = values_temp[i].split("	");
+                        item_id = Long.parseLong(parameters[0]);
+        	    	}
+        	    }
+        	    
 	            db.open();           
 				Intent bill_info = new Intent("com.example.easylife.billinfo");
 				bill_info.putExtra("bill_title", db.getName(item_id));//String
@@ -78,9 +105,24 @@ public class HomePage extends Activity implements View.OnClickListener{
             
             public boolean onItemLongClick(AdapterView parent, View view, int position, long id){  
                 // TODO Auto-generated method stub  
+
+                
+                
+                
                 String product = ((TextView) view).getText().toString(); 
-                String parameters[]  = product.split(" ");
-                long item_id = Long.parseLong(parameters[0]);
+                long item_id = -1;
+                
+        	    db.open();
+        	    String[] values_temp = db.getData();
+        	    db.close();
+        	    String temp[] = new String [2];
+        	    for(int i = 0; i < values_temp.length; i++){
+        	    	temp = values_temp[i].split("	", 2);
+        	    	if(temp[1].equalsIgnoreCase(product)){
+                        String parameters[]  = values_temp[i].split("	");
+                        item_id = Long.parseLong(parameters[0]);
+        	    	}
+        	    }
                 //need a dialog here
 	            db.open();           
 	            db.delete(item_id);
@@ -89,33 +131,60 @@ public class HomePage extends Activity implements View.OnClickListener{
                 return true;  
             }  
           });  
-        
-        
 
-//        TextView tv = (TextView) findViewById(R.id.tvSQLinfo);
-//        Database info = new Database(this);
-//        info.open();
-//        String data = info.getData();
-//        info.close();
-//        tv.setText(data);
-//        
-        
           add = (Button)findViewById(R.id.button_add);
           add.setOnClickListener(this);
           report = (Button)findViewById(R.id.button_report);
           report.setOnClickListener(this);
-//        sqlRow = (EditText)findViewById(R.id.etSQLrowInfo);
-//        sqlModify = (Button)findViewById(R.id.button_SQLEdit);
-//        sqlGetInfo = (Button)findViewById(R.id.button_SQLgetInfo);
-//        sqlDelete = (Button)findViewById(R.id.button_SQLDelete);
-//        sqlModify.setOnClickListener(this);
-//        sqlDelete.setOnClickListener(this);
-//        sqlGetInfo.setOnClickListener(this);
-//        sqlName = (EditText)findViewById(R.id.SQLname);
-//        
         
 	}
 
+	
+	
+    
+    
+//    
+//    public void createNotification(View view) {
+//    	
+//        //
+//	//  Look up the notification manager server 
+//        NotificationManager nm = 
+//          (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+// 
+//        //
+//        //  Create your notification 
+//        int icon = R.drawable.easylifelog;
+//        CharSequence tickerText = "Hello";
+//        long when = System.currentTimeMillis();
+// 
+//        Notification notification = 
+//            new Notification( icon, tickerText, when);
+// 
+//        Context context = getApplicationContext();
+//        CharSequence contentTitle = "My notification";
+//        CharSequence contentText = "Hello World!";
+//        Intent notificationIntent = 
+//            new Intent(this, HomePage.class);
+//        PendingIntent contentIntent = 
+//            PendingIntent.getActivity(this, 0, notificationIntent, 0);
+// 
+//        notification.setLatestEventInfo(
+//            context, 
+//            contentTitle, 
+//            contentText, 
+//            contentIntent);
+// 
+//        // 
+//        //  Send the notification
+//  //      nm.notify( 1, notification );
+//        
+//        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+//
+//        nm.notify(1, notification);
+//
+//
+//  	  }
+    
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
@@ -143,12 +212,18 @@ public class HomePage extends Activity implements View.OnClickListener{
 	    info.open();
 	    String[] values = info.getData();
 	    info.close();
+	    
+	    for(int i = 0; i < values.length; i++){
+	    	String temp[] = values[i].split("	", 2);
+	    	values[i] = temp[1];
+	    }
         // First paramenter - Context
         // Second parameter - Layout for the row
         // Third parameter - ID of the TextView to which the data is written
         // Forth - the Array of data
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
           android.R.layout.simple_list_item_1, android.R.id.text1, values);
+
         // Assign adapter to ListView
         listView.setAdapter(adapter); 
 	}
@@ -162,6 +237,7 @@ public class HomePage extends Activity implements View.OnClickListener{
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub
+
 		super.onStop();
 	}
 
@@ -170,7 +246,7 @@ public class HomePage extends Activity implements View.OnClickListener{
 		final MediaPlayer mpButtonClick = MediaPlayer.create(this, R.raw.button);
 		switch (v.getId()) {
 		case R.id.button_add:
-			startActivity( new Intent("com.example.easylife.add"));
+			startActivity( new Intent("com.example.easylife.add"));	      	
 			mpButtonClick.start();
 			break;
 		case R.id.button_report:
