@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,6 +26,9 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
@@ -96,11 +100,12 @@ public class Map extends MapActivity
         itemizedoverlay.addOverlay(overlayitem2);
         mapOverlays.add(itemizedoverlay);
         
+//        super.onPause();
+        
 //        if (itemizedoverlay.getFlag() == true) {
 //        	startActivity( new Intent("com.example.easylife.add"));
 //        }
         
-        System.out.println(itemizedoverlay.getFlag());
         
 //        while (itemizedoverlay.getFlag() == false) {
 //        	continue;
@@ -108,8 +113,41 @@ public class Map extends MapActivity
 //        
 //        startActivity( new Intent("com.example.easylife.add"));
         
+        Button confirm = (Button) findViewById (R.id.ConfirmLocation);
+        confirm.setOnClickListener(new View.OnClickListener() {
+                          
+                          public void onClick(View v) {
+                                  // TODO Auto-generated method stub
+                        	  Intent resultIntent = new Intent();
+                        	// TODO Add extras or a data URI to this intent as appropriate.
+                        	  resultIntent.putExtra("location", itemizedoverlay.item.getSnippet());
+                        	  setResult(Activity.RESULT_OK, resultIntent);
+                                  finish();
+                          }
+                  });
+        
     }
-    private void updateWithNewLocation(Location location) 
+	
+	
+	
+	
+    @Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		
+      if (itemizedoverlay.getFlag() == true) {
+    	startActivity( new Intent("com.example.easylife.add"));
+    	
+    	System.out.println(itemizedoverlay.item.getSnippet());
+    }
+		
+	}
+
+
+
+
+	private void updateWithNewLocation(Location location) 
     {
         String latLongString;
         TextView myLocationText = (TextView)findViewById(R.id.MapLocation);
@@ -237,8 +275,9 @@ public class Map extends MapActivity
 	class HelloItemizedOverlay extends ItemizedOverlay{
 		
 		private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
-		Context mContext;
+		private Context mContext;
 		public boolean flag = false;
+		public OverlayItem item;
 		
 		
 		
@@ -282,7 +321,7 @@ public class Map extends MapActivity
 		
 		@Override
 		protected boolean onTap(int index) {
-		  OverlayItem item = mOverlays.get(index);
+		  item = mOverlays.get(index);
 		  AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
 		  dialog.setTitle(item.getTitle());
 		  dialog.setMessage(item.getSnippet())
@@ -293,6 +332,8 @@ public class Map extends MapActivity
 //		      		  startActivity( new Intent("com.example.easylife.add"));
 		        	  flag = true;
 		        	  System.out.println("user entered: " + flag);
+		        	  
+		        	  
 
 		        	  
 		          }
@@ -328,5 +369,7 @@ public class Map extends MapActivity
 //		    }
 
 	}
+
+   
 
 }

@@ -43,6 +43,7 @@ public class NewBill extends FragmentActivity implements View.OnClickListener{
 	private  String OUTPUT_FILE;
     private Intent i;
     final static int CameraData = 0;
+    final static int MapData = 1;
     private Bitmap bmp; 
     private ImageView showpic;
     private ImageButton takepic;
@@ -251,7 +252,7 @@ public class NewBill extends FragmentActivity implements View.OnClickListener{
 			break;
 		case R.id.ButtonMap:
 			mpButtonClick.start();
-			startActivity( new Intent("com.example.easylife.map"));
+			startActivityForResult( new Intent("com.example.easylife.map"), MapData);
 			break;
 		case R.id.ButtonNext:
 			mpButtonClick.start();
@@ -302,12 +303,31 @@ public class NewBill extends FragmentActivity implements View.OnClickListener{
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
+		switch(requestCode) {
+		
+		case (CameraData): {
 		if(resultCode == RESULT_OK) {
 			Bundle extras = data.getExtras();
 			bmp = (Bitmap) extras.get("data");
 			showpic.setImageBitmap(bmp);
 		}
+		break;
+		}
+		case(MapData): {
+			 if (resultCode == Activity.RESULT_OK) {
+			        // TODO Extract the data returned from the child Activity.
+				 
+				 String location = data.getStringExtra("location");
+				 
+				 TextView l = (TextView)findViewById(R.id.location);
+				 l.setText(location);
+				 
+			      }
+			 break;
+		}
 	}
+	}
+
 	
 	
 	public static byte[] drawableToByteArray(Bitmap d) {
@@ -350,4 +370,6 @@ public class NewBill extends FragmentActivity implements View.OnClickListener{
 	    DialogFragment newFragment = new DatePickerFragment();
 	    newFragment.show(getSupportFragmentManager(), "datePicker");
 	}
+	
+
 }

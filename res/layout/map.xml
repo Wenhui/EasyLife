@@ -13,6 +13,15 @@
 <TextView
     android:id="@+id/MapLocation"
     android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>
+
+<Button
+    android:id="@+id/ConfirmLocation"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="hello" />
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentRight="true"
+    android:layout_marginBottom="54dp"
+    android:text="Confirm" />
+
 </RelativeLayout> 
