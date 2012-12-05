@@ -96,8 +96,20 @@ public class Map extends MapActivity
         GeoPoint point2 = new GeoPoint(37378257,-122076093);
         OverlayItem overlayitem2 = new OverlayItem(point2, "US Post Office", "Post Office");
         
+        GeoPoint point3 = new GeoPoint(37378683,-122075021);
+        OverlayItem overlayitem3 = new OverlayItem(point3, "Grant Road Shel", "Gas Station");
+        
+        GeoPoint point4 = new GeoPoint(37380763,-122076351);
+        OverlayItem overlayitem4 = new OverlayItem(point4, "Pamela Drive Apartments", "Rent");
+        
+        GeoPoint point5 = new GeoPoint(37378074,-122076841);
+        OverlayItem overlayitem5 = new OverlayItem(point5, "Grant Park Plaza Shopping Center", "Clothing");
+        
         itemizedoverlay.addOverlay(overlayitem);
         itemizedoverlay.addOverlay(overlayitem2);
+        itemizedoverlay.addOverlay(overlayitem3);
+        itemizedoverlay.addOverlay(overlayitem4);
+        itemizedoverlay.addOverlay(overlayitem5);
         mapOverlays.add(itemizedoverlay);
         
 //        super.onPause();
@@ -196,7 +208,7 @@ public class Map extends MapActivity
             latLongString="no location found\n";
         }
         //
-        myLocationText.setText("you current location: \n"+latLongString+"\n"+addressString);
+        myLocationText.setText("you current location: \n"+latLongString+"\n");
     }
     private final LocationListener locationListener=new LocationListener()
     {
