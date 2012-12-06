@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:okCancelBar="http://schemas.android.com/apk/res/com.example.android.merge">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+         android:layout_gravity="bottom"
+    >
+
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="50"
+            android:text="Back" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listView_report"
+        android:layout_width="match_parent"
+        android:layout_height="436dp" >
+
+    </ListView>
+
+</merge>

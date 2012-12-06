@@ -72,9 +72,9 @@
        
         <activity
             android:name=".BillInfo"
-            android:label="BILL_INFO" >
+            android:label="BILLINFO" >
             <intent-filter>
-                <action android:name="com.example.easylife.bill_info" />
+                <action android:name="com.example.easylife.billinfo" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -86,6 +86,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        
+        
+        <service android:name=".ScheduleService"/>
+        <service android:name=".NotifyService"/>
         
     </application>
 	<uses-permission android:name="android.permission.INTERNET"/>

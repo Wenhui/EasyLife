@@ -1,20 +1,49 @@
 package com.example.easylife;
 import android.app.Activity;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 
 import com.example.easylife.R;
 
 
 public class Report extends Activity{
 	
-	
-	
+    Database db = new Database(this);
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		final MediaPlayer mpButtonClick = MediaPlayer.create(this, R.raw.button);
 		super.onCreate(savedInstanceState);
 		
- //       setContentView(R.layout.homepage);
+	    Database info = new Database(this);
+	    info.open();
+	    String[] values = info.getStatisticInfo();
+	    info.close();
+		
+       setContentView(R.layout.report);
+       
+       ListView listView = (ListView) findViewById(R.id.listView_report);
+       
+       ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+    	          android.R.layout.simple_list_item_1, android.R.id.text1, values);
+    	        // Assign adapter to ListView
+    	        listView.setAdapter(adapter); 
+    	        
+       Button back = (Button) findViewById (R.id.back_button);
+       back.setOnClickListener(new View.OnClickListener() {
+ 			
+ 			public void onClick(View v) {
+ 				// TODO Auto-generated method stub
+ 				
+ 				mpButtonClick.start();
+ 				finish();
+ 			}
+ 		});   
 	}
 
 	@Override
