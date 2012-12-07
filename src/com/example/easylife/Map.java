@@ -132,9 +132,16 @@ public class Map extends MapActivity
                                   // TODO Auto-generated method stub
                         	  Intent resultIntent = new Intent();
                         	// TODO Add extras or a data URI to this intent as appropriate.
-                        	  resultIntent.putExtra("location", itemizedoverlay.item.getSnippet());
+                        	  try {
+                        		  resultIntent.putExtra("location", itemizedoverlay.item.getSnippet());
+                        	  }
+                        	  catch (NullPointerException e) {
+                        		  resultIntent.putExtra("location", "no location selected");
+                        	  }
+                        	  finally {
                         	  setResult(Activity.RESULT_OK, resultIntent);
                                   finish();
+                        	  }
                           }
                   });
         

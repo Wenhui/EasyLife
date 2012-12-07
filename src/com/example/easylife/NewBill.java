@@ -43,6 +43,7 @@ public class NewBill extends Activity implements View.OnClickListener{
     final static int MapData = 1;
     private Bitmap bmp; 
     private ImageView showpic;
+    private Spinner spinner;
     
 	private int year;
 	private int month;
@@ -76,7 +77,7 @@ public class NewBill extends Activity implements View.OnClickListener{
         final MediaPlayer mpButtonClick = MediaPlayer.create(this, R.raw.button);
              
  
-        Spinner spinner = (Spinner) findViewById(R.id.SpinnerCategory);
+        spinner = (Spinner) findViewById(R.id.SpinnerCategory);
 	     // Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
 				R.array.category, android.R.layout.simple_spinner_item);
@@ -327,7 +328,15 @@ public class NewBill extends Activity implements View.OnClickListener{
 				 
 				 TextView l = (TextView)findViewById(R.id.location);
 				 l.setText(location);
-				 
+				 if (location.contains("Clothing"))
+					 spinner.setSelection(4);
+				 else if (location.contains("Post Office"))
+					 spinner.setSelection(1);
+				 else if (location.contains("Gas Station"))
+					 spinner.setSelection(2);
+				 else if (location.contains("Rent"))
+					 spinner.setSelection(3);
+				 else spinner.setSelection(0);
 			      }
 			 break;
 		}
