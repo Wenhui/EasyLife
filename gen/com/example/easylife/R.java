@@ -19,13 +19,20 @@ public final class R {
     public static final class drawable {
         public static final int addphoto=0x7f020000;
         public static final int background=0x7f020001;
-        public static final int confirm=0x7f020002;
-        public static final int homepage=0x7f020003;
-        public static final int ic_action_search=0x7f020004;
-        public static final int ic_launcher=0x7f020005;
-        public static final int map=0x7f020006;
-        public static final int money=0x7f020007;
-        public static final int nophoto=0x7f020008;
+        public static final int black=0x7f020002;
+        public static final int blue=0x7f020003;
+        public static final int confirm=0x7f020004;
+        public static final int delete=0x7f020005;
+        public static final int green=0x7f020006;
+        public static final int homepage=0x7f020007;
+        public static final int ic_action_search=0x7f020008;
+        public static final int ic_launcher=0x7f020009;
+        public static final int map=0x7f02000a;
+        public static final int money=0x7f02000b;
+        public static final int nophoto=0x7f02000c;
+        public static final int purple=0x7f02000d;
+        public static final int red=0x7f02000e;
+        public static final int yellow=0x7f02000f;
     }
     public static final class id {
         public static final int ButtonBack=0x7f0a0027;
@@ -64,12 +71,13 @@ public final class R {
         public static final int editTextBillTitle2=0x7f0a0005;
         public static final int editTextPrice=0x7f0a0023;
         public static final int editTextPrice2=0x7f0a0007;
+        public static final int gridView1=0x7f0a002c;
         public static final int imageViewReturnedPic=0x7f0a0021;
         public static final int imageViewReturnedPic2=0x7f0a0003;
         public static final int linearLayout1=0x7f0a0017;
         public static final int listView=0x7f0a0014;
         public static final int listView_report=0x7f0a002b;
-        public static final int menu_settings=0x7f0a002c;
+        public static final int menu_settings=0x7f0a002d;
         public static final int textView1=0x7f0a0001;
         public static final int textView2=0x7f0a0000;
         public static final int textitem=0x7f0a0018;
@@ -87,6 +95,7 @@ public final class R {
         public static final int new_bill2=0x7f030009;
         public static final int report=0x7f03000a;
         public static final int report2=0x7f03000b;
+        public static final int report3=0x7f03000c;
     }
     public static final class menu {
         public static final int activity_main=0x7f090000;
@@ -108,5 +117,6 @@ public final class R {
     }
     public static final class style {
         public static final int AppTheme=0x7f080000;
+        public static final int ButtonText=0x7f080001;
     }
 }

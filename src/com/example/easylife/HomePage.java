@@ -109,17 +109,17 @@ public class HomePage extends Activity implements View.OnClickListener{
             
             public boolean onItemLongClick(AdapterView parent, View view, int position, long id){  
                 // TODO Auto-generated method stub  
-                product2 = ((TextView) view).getText().toString(); 
+            	product2 = values[position];
             	AlertDialog.Builder alertDialog = new AlertDialog.Builder(HomePage.this);
             	 
                 // Setting Dialog Title
                 alertDialog.setTitle("Delete");
          
                 // Setting Dialog Message
-                alertDialog.setMessage("Are you sure you want delete this?");
+                alertDialog.setMessage("Do you want to delete this?");
          
                 // Setting Icon to Dialog
-                alertDialog.setIcon(R.drawable.money);
+                alertDialog.setIcon(R.drawable.delete);
          
                 // Setting Positive "Yes" Button
                 alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {

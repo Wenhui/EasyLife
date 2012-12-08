@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import com.example.easylife.R;
@@ -22,17 +23,23 @@ public class Report extends Activity{
 		
 	    Database info = new Database(this);
 	    info.open();
-	    String[] values = info.getStatisticInfo();
+	    String[] values = info.getStatisticInfo2();
 	    info.close();
 		
-       setContentView(R.layout.report2);
+       setContentView(R.layout.report3);
        
-       ListView listView = (ListView) findViewById(R.id.listView_report);
+//       ListView listView = (ListView) findViewById(R.id.listView_report);
+//       
+//       ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//    		   R.layout.itemview, R.id.textitem, values);
+//    	        // Assign adapter to ListView
+//    	        listView.setAdapter(adapter); 
+       GridView gridView = (GridView)findViewById(R.id.gridView1);
+	   ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+		   R.layout.itemview, R.id.textitem, values);
+	        // Assign adapter to ListView
+	   gridView.setAdapter(adapter); 
        
-       ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-    		   R.layout.itemview, R.id.textitem, values);
-    	        // Assign adapter to ListView
-    	        listView.setAdapter(adapter); 
     	        
        Button back = (Button) findViewById (R.id.back_button);
        back.setOnClickListener(new View.OnClickListener() {

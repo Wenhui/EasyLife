@@ -305,4 +305,63 @@ public class Database {
 
 		return result;		
 	}
+	public String [] getStatisticInfo2(){
+		
+		// TODO Auto-generated method stub
+		String[] columns = new String[]{
+				KEY_ROWID, KEY_TITLE, KEY_PRICE, KEY_CATEGORY, KEY_STATUS, KEY_IMAGE, KEY_MEMO, KEY_DATE, KEY_ALERT
+		};
+		Cursor c = ourDatabase.query(DATABASE_TABLE, columns, null, null, null, null, null,null);
+		String result [] = new String [18];
+		result[0] = "Cat.";
+		result[1] = "Per.";
+		result[2] = "Tol.";
+		result[3] = "Food";
+		result[6] = "Education";
+		result[9] = "Gas";
+		result[12]= "Rent";
+		result[15] = "Cloth";
+		double prices [] = new double [5];
+		double percentages [] = new double [5];
+		String categories[] = {"Food","Education","Gas","Rent","Cloth"};
+		
+		
+		int iPrice= c.getColumnIndex(KEY_PRICE);
+		int iCategory = c.getColumnIndex(KEY_CATEGORY);
+		for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+
+			if(c.getString(iCategory).equalsIgnoreCase("Food")){
+				prices[0] += c.getDouble(iPrice);
+			}
+			else if(c.getString(iCategory).equalsIgnoreCase("Education")){
+				prices[1] += c.getDouble(iPrice);
+			}
+			else if(c.getString(iCategory).equalsIgnoreCase("Gas")){
+				prices[2] += c.getDouble(iPrice);
+			}
+			else if(c.getString(iCategory).equalsIgnoreCase("Rent")){
+				prices[3] += c.getDouble(iPrice);
+			}
+			else if(c.getString(iCategory).equalsIgnoreCase("Cloth")){
+				prices[4] += c.getDouble(iPrice);
+			}
+		}
+		
+		double total = prices[0] + prices[1] + prices[2] + prices[3] + prices[4];
+		DecimalFormat transfer = new DecimalFormat( "#"); 
+		for(int ii = 0; ii < 5; ii++){
+			percentages [ii] = prices[ii] / total;
+			result[3*(ii+1)+1] = transfer.format(percentages[ii] * 100)+"%"; 
+			result[3*(ii+1)+2] = transfer.format(prices[ii]);
+		}
+
+//		result[0] = "Cat.           Per.       Tot."; 
+//		result[1] = categories[0] + "         " + transfer.format(percentages[0] * 100)  + "%      $" + transfer.format(prices[0]); 
+//		result[2] = categories[1] + "  " + transfer.format(percentages[1] * 100)  + "%        $" + transfer.format(prices[1]); 
+//		result[3] = categories[2] + "            " + transfer.format(percentages[2] * 100)  + "%        $" + transfer.format(prices[2]); 
+//		result[4] = categories[3] + "           " + transfer.format(percentages[3] * 100)  + "%        $" + transfer.format(prices[3]); 
+//		result[5] = categories[4] + "          " + transfer.format(percentages[4] * 100)  + "%        $" + transfer.format(prices[4]); 
+
+		return result;		
+	}
 }
