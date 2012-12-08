@@ -27,18 +27,17 @@ public final class R {
         public static final int nophoto=0x7f020007;
     }
     public static final class id {
-        public static final int ButtonBack=0x7f0a0028;
+        public static final int ButtonBack=0x7f0a0025;
         public static final int ButtonBack2=0x7f0a000e;
         public static final int ButtonEdit2=0x7f0a000d;
-        public static final int ButtonMap=0x7f0a0026;
-        public static final int ButtonNext=0x7f0a0029;
+        public static final int ButtonMap=0x7f0a0024;
+        public static final int ButtonNext=0x7f0a0026;
         public static final int ButtonRecord=0x7f0a001a;
         public static final int ButtonRecord2=0x7f0a000c;
         public static final int CheckBoxStatus=0x7f0a001b;
         public static final int CheckBoxStatus2=0x7f0a000b;
         public static final int ConfirmLocation=0x7f0a0019;
-        public static final int DatePicker=0x7f0a0024;
-        public static final int DueDate=0x7f0a0025;
+        public static final int DatePicker=0x7f0a0023;
         public static final int MapLocation=0x7f0a0018;
         public static final int MapView01=0x7f0a0017;
         public static final int SpinnerCategory=0x7f0a001c;
@@ -49,27 +48,25 @@ public final class R {
         public static final int TextCategory=0x7f0a001d;
         public static final int TextCategory2=0x7f0a0008;
         public static final int TextCategoryDisplay=0x7f0a0011;
-        public static final int TextPrice=0x7f0a0021;
+        public static final int TextPrice=0x7f0a0020;
         public static final int TextPrice2=0x7f0a0006;
         public static final int TextPriceDisplay=0x7f0a0010;
-        public static final int TextStatus=0x7f0a0020;
         public static final int TextStatus2=0x7f0a000a;
         public static final int TextStatusDisplay=0x7f0a0012;
         public static final int TextView01=0x7f0a0002;
-        public static final int back_button=0x7f0a002a;
+        public static final int back_button=0x7f0a0027;
         public static final int button_add=0x7f0a0015;
         public static final int button_confirm=0x7f0a0013;
         public static final int button_report=0x7f0a0016;
-        public static final int editTextBillTitle=0x7f0a0023;
+        public static final int editTextBillTitle=0x7f0a0022;
         public static final int editTextBillTitle2=0x7f0a0005;
-        public static final int editTextPrice=0x7f0a0022;
+        public static final int editTextPrice=0x7f0a0021;
         public static final int editTextPrice2=0x7f0a0007;
         public static final int imageViewReturnedPic=0x7f0a001f;
         public static final int imageViewReturnedPic2=0x7f0a0003;
         public static final int listView=0x7f0a0014;
-        public static final int listView_report=0x7f0a002b;
-        public static final int location=0x7f0a0027;
-        public static final int menu_settings=0x7f0a002c;
+        public static final int listView_report=0x7f0a0028;
+        public static final int menu_settings=0x7f0a0029;
         public static final int textView1=0x7f0a0001;
         public static final int textView2=0x7f0a0000;
     }

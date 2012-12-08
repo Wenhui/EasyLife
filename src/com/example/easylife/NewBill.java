@@ -48,6 +48,7 @@ public class NewBill extends Activity implements View.OnClickListener{
 	private int year;
 	private int month;
 	private int day;
+	String title;
 	
     private ScheduleClient scheduleClient;
     
@@ -261,7 +262,7 @@ public class NewBill extends Activity implements View.OnClickListener{
 			break;
 		case R.id.ButtonNext:
 			mpButtonClick.start();
-			String title = ((EditText)findViewById(R.id.editTextBillTitle)).getText().toString();
+			title = ((EditText)findViewById(R.id.editTextBillTitle)).getText().toString();
 			String price_string = ((EditText)findViewById(R.id.editTextPrice)).getText().toString();
 			String category = ((Spinner)findViewById(R.id.SpinnerCategory)).getSelectedItem().toString();
 			boolean status = ((CheckBox)findViewById(R.id.CheckBoxStatus)).isChecked();
@@ -325,17 +326,33 @@ public class NewBill extends Activity implements View.OnClickListener{
 			        // TODO Extract the data returned from the child Activity.
 				 
 				 String location = data.getStringExtra("location");
+				 String titleValue = data.getStringExtra("BillTitle");
 				 
-				 TextView l = (TextView)findViewById(R.id.location);
-				 l.setText(location);
-				 if (location.contains("Clothing"))
+//				 TextView l = (TextView)findViewById(R.id.location);
+//				 l.setText(titleValue);
+				 if (location.contains("Clothing")) {
 					 spinner.setSelection(4);
+				 	 EditText edittitle = (EditText)findViewById(R.id.editTextBillTitle);
+				 	 edittitle.setText(titleValue);
+				 }
 				 else if (location.contains("Post Office"))
+				 {
 					 spinner.setSelection(1);
+				 	 EditText edittitle = (EditText)findViewById(R.id.editTextBillTitle);
+				 	 edittitle.setText(titleValue);
+				 }
 				 else if (location.contains("Gas Station"))
+				 {
 					 spinner.setSelection(2);
+				 	 EditText edittitle = (EditText)findViewById(R.id.editTextBillTitle);
+				 	 edittitle.setText(titleValue);
+				 }
 				 else if (location.contains("Rent"))
+				 {
 					 spinner.setSelection(3);
+				 	 EditText edittitle = (EditText)findViewById(R.id.editTextBillTitle);
+				 	 edittitle.setText(titleValue);
+				 }
 				 else spinner.setSelection(0);
 			      }
 			 break;
