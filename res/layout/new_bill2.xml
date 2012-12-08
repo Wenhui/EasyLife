@@ -1,185 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background"
-    android:orientation="vertical" >
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/TextBillTitle"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Bill Title"
-            android:textColor="@color/white"
-            android:textSize="20dp" />
-
-        <EditText
-            android:id="@+id/editTextBillTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/purple"
-            android:ems="10" >
-
-            <requestFocus />
-        </EditText>
-
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="40"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/TextPrice"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Price"
-                android:textColor="@color/white"
-                android:textSize="20dp" />
-
-            <EditText
-                android:id="@+id/editTextPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/red"
-                android:ems="10"
-                android:inputType="numberDecimal" />
-
-            <TextView
-                android:id="@+id/TextCategory"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Category"
-                android:textColor="@color/white"
-                android:textSize="20dp" />
-
-            <Spinner
-                android:id="@+id/SpinnerCategory"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/green" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:orientation="vertical" >
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <ImageView
-                    android:id="@+id/imageViewReturnedPic"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/addphoto" />
-
-            </RelativeLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <CheckBox
-            android:id="@+id/CheckBoxStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:text="Paid"
-            android:textColor="@color/white"
-            android:textSize="20dp" />
-
-        <Button
-            android:id="@+id/DatePicker"
-            style="@style/ButtonText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="18dp"
-            android:layout_weight="50"
-            android:background="@drawable/red"
-            android:text="DueDatePicker"
-            android:textSize="20dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <Button
-            android:id="@+id/ButtonMap"
-            style="@style/ButtonText"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/green"
-            android:text="Location Service"
-            android:textSize="20dp" />
-
-        <Button
-            android:id="@+id/ButtonRecord"
-            style="@style/ButtonText"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/yellow"
-            android:text="Voice Memo"
-            android:textSize="20dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="bottom" >
-
-        <Button
-            android:id="@+id/ButtonBack"
-            style="@style/ButtonText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_weight="50"
-            android:background="@drawable/black"
-            android:text="Back"
-            android:textSize="20dp" />
-
-        <Button
-            android:id="@+id/ButtonNext"
-            style="@style/ButtonText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_weight="50"
-            android:background="@drawable/blue"
-            android:text="Confirm"
-            android:textSize="20dp" />
-
-    </LinearLayout>
-
-</LinearLayout>

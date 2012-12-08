@@ -21,7 +21,7 @@
         android:theme="@style/AppTheme" >
         <uses-library android:name="com.google.android.maps" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,7 +31,7 @@
         </activity>
         
         <activity
-            android:name=".HomePage"
+            android:name=".activities.HomePage"
             android:label="@string/homepage_title" >
             <intent-filter>
                 <action android:name="com.example.easylife.homepage" />
@@ -41,7 +41,7 @@
         
         
          <activity
-            android:name=".NewBill"
+            android:name=".activities.NewBill"
             android:label="ADD" 
  			android:screenOrientation="portrait"
             android:configChanges="keyboardHidden|orientation">
@@ -52,7 +52,7 @@
         </activity>
         
         <activity
-            android:name=".Report"
+    android:name=".activities.Report"
             android:label="REPORT" >
             <intent-filter>
                 <action android:name="com.example.easylife.report" />
@@ -62,26 +62,18 @@
         
    
         
-        <activity
-            android:name=".Confirm"
-            android:label="CONFIRM" >
-            <intent-filter>
-                <action android:name="com.example.easylife.confirm" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
 
        
         <activity
-            android:name=".BillInfo"
+   		 android:name=".activities.BillInfo"
             android:label="BILLINFO" >
             <intent-filter>
                 <action android:name="com.example.easylife.billinfo" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>
+            </activity>
 
-        <activity android:name=".Map"
+        <activity android:name=".activities.Map"
                   android:label="Map">
             <intent-filter>
                 <action android:name="com.example.easylife.map" />
@@ -90,8 +82,8 @@
         </activity>
         
         
-        <service android:name=".ScheduleService"/>
-        <service android:name=".NotifyService"/>
+        <service android:name=".services.ScheduleService"/>
+        <service android:name=".services.NotifyService"/>
         
     </application>
 	<uses-permission android:name="android.permission.INTERNET"/>

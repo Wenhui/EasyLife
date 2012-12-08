@@ -1,146 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:okCancelBar="http://schemas.android.com/apk/res/com.example.android.merge">
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="top"
-    android:orientation="vertical" 
-    android:background="@drawable/background" >
+    android:background="@drawable/background"
+    android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/ButtonRecord"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="62dp"
-        android:text="VOICE MEMO" />
-
-    <CheckBox2
-        android:id="@+id/CheckBoxStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/ButtonRecord"
-        android:text="Paid" />
-
-    <Spinner
-        android:id="@+id/SpinnerCategory"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/CheckBoxStatus"
-        android:layout_alignParentLeft="true" />
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/TextBillTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Bill Title"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/editTextBillTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/purple"
+            android:ems="10" >
 
-    <TextView
-        android:id="@+id/TextCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/SpinnerCategory"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="14dp"
-        android:text="Category" />
-
-    <TextView
-        android:id="@+id/TextBillTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="14dp"
-        android:text="Bill Title" />
-
-    <ImageView
-        android:id="@+id/imageViewReturnedPic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/TextCategory"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/addphoto" />
+            <requestFocus />
+        </EditText>
 
 
-    <TextView
-        android:id="@+id/TextPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/imageViewReturnedPic"
-        android:layout_alignParentLeft="true"
-        android:text="Price" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/TextPrice"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
 
-    <EditText
-        android:id="@+id/editTextPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/imageViewReturnedPic"
-        android:layout_toLeftOf="@+id/imageViewReturnedPic"
-        android:ems="10"
-        android:inputType="numberDecimal" >
+            <EditText
+                android:id="@+id/editTextPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/red"
+                android:ems="10"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/TextCategory"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Category"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <Spinner
+                android:id="@+id/SpinnerCategory"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/green" />
 
-        <requestFocus />
-    </EditText>
+        </LinearLayout>
 
-    <EditText
-        android:id="@+id/editTextBillTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/TextPrice"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:ems="10" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/DatePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/ButtonRecord"
-        android:layout_alignLeft="@+id/imageViewReturnedPic"
-        android:layout_marginLeft="18dp"
-        android:text="DueDatePicker" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:id="@+id/imageViewReturnedPic"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/addphoto" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <CheckBox
+            android:id="@+id/CheckBoxStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:text="Paid"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/DatePicker"
+            style="@style/ButtonText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18dp"
+            android:layout_weight="50"
+            android:background="@drawable/red"
+            android:text="DueDatePicker"
+            android:textSize="20dp" />
 
-    <Button
-        android:id="@+id/ButtonMap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editTextPrice"
-        android:layout_marginTop="18dp"
-        android:text="MAP" />
-
-
-
-</RelativeLayout>
-
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-         android:layout_gravity="bottom"
-    >
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/ButtonMap"
+            style="@style/ButtonText"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/green"
+            android:text="Location Service"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/ButtonRecord"
+            style="@style/ButtonText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/yellow"
+            android:text="Voice Memo"
+            android:textSize="20dp" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="bottom" >
+
         <Button
             android:id="@+id/ButtonBack"
+            style="@style/ButtonText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="bottom"
             android:layout_weight="50"
-            android:text="Back" />
-
+            android:background="@drawable/black"
+            android:text="Back"
+            android:textSize="20dp" />
+
         <Button
-             android:id = "@+id/ButtonNext"
-             android:text="Confirm"
-             android:layout_width = "wrap_content"
-             android:layout_height = "wrap_content"
-             android:layout_gravity="center"
-             android:layout_weight="50"
-        />
+            android:id="@+id/ButtonNext"
+            style="@style/ButtonText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="50"
+            android:background="@drawable/blue"
+            android:text="Confirm"
+            android:textSize="20dp" />
+
     </LinearLayout>
 
-    <Spinner
-        android:id="@+id/Spinner01"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-</merge>
+</LinearLayout>

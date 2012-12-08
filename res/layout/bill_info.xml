@@ -1,116 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/background"  >
+    android:background="@drawable/background"
+    android:orientation="vertical" >
 
-
-    <ImageView
-        android:id="@+id/imageViewReturnedPic2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="300dp"
-        android:src="@drawable/nophoto" />
-
-    <TextView
-        android:id="@+id/TextBillTitle2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="189dp"
-        android:text="Bill Title"
-        android:textColor="@android:color/white" />
-
-    <EditText
-        android:id="@+id/editTextBillTitle2"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/TextBillTitle2"
-        android:ems="10" >
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/imageViewReturnedPic2"
+            android:layout_width="fill_parent"
+            android:layout_height="166dp"
+            android:src="@drawable/nophoto" />
 
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:id="@+id/TextPrice2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editTextBillTitle2"
-        android:text="Price"
-        android:textColor="@android:color/white" />
-
-    <EditText
-        android:id="@+id/editTextPrice2"
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/TextPrice2"
-        android:ems="10"
-        android:inputType="numberDecimal" />
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/TextBillTitle2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Bill Title"
+            android:textColor="@android:color/white"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/editTextBillTitle2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/purple"
+            android:ems="10" >
 
-    <TextView
-        android:id="@+id/TextCategory2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editTextPrice2"
-        android:text="Category"
-        android:textColor="@android:color/white" />
+            <requestFocus />
+        </EditText>
+
+        <TextView
+            android:id="@+id/TextPrice2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Price"
+            android:textColor="@android:color/white"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/editTextPrice2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/red"
+            android:ems="10"
+            android:inputType="numberDecimal" />
+
+        <TextView
+            android:id="@+id/TextCategory2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Category"
+            android:textColor="@android:color/white"
+            android:textSize="20dp" />
+
+        <Spinner
+            android:id="@+id/SpinnerCategory2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/green" />
 
-    <Spinner
-        android:id="@+id/SpinnerCategory2"
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/TextCategory2" />
+        android:layout_height="wrap_content" >
+
+        <CheckBox
+            android:id="@+id/CheckBoxStatus2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:text="Paid"
+            android:textColor="@android:color/white"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/ButtonRecord2"
+            style="@style/ButtonText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:background="@drawable/yellow"
+            android:text="Play Memo"
+            android:textSize="20dp" />
 
-    <TextView
-        android:id="@+id/TextStatus2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/SpinnerCategory2"
-        android:text="Status"
-        android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="bottom" >
+
+        <Button
+            android:id="@+id/ButtonBack2"
+            style="@style/ButtonText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="50"
+            android:background="@drawable/black"
+            android:shadowColor="@color/white"
+            android:text="Back"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/ButtonEdit2"
+            style="@style/ButtonText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="50"
+            android:background="@drawable/blue"
+            android:text="Edit"
+            android:textSize="20dp" />
 
-    <CheckBox
-        android:id="@+id/CheckBoxStatus2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/TextStatus2"
-        android:layout_alignBottom="@+id/TextStatus2"
-        android:layout_toRightOf="@+id/TextBillTitle2"
-        android:text="Paid"
-        android:textColor="@android:color/white" />
+    </LinearLayout>
 
-     <Button
-         android:id="@+id/ButtonRecord2"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentRight="true"
-         android:layout_alignTop="@+id/TextStatus2"
-         android:layout_marginRight="24dp"
-         android:text="MEMO" />
-
-    <Button
-        android:id="@+id/ButtonEdit2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/ButtonRecord2"
-        android:text="Edit" />
-
-    <Button
-        android:id="@+id/ButtonBack2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:text="Back" />
-
-</RelativeLayout>
+</LinearLayout>
