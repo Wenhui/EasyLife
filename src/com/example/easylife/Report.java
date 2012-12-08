@@ -25,12 +25,12 @@ public class Report extends Activity{
 	    String[] values = info.getStatisticInfo();
 	    info.close();
 		
-       setContentView(R.layout.report);
+       setContentView(R.layout.report2);
        
        ListView listView = (ListView) findViewById(R.id.listView_report);
        
        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-    	          android.R.layout.simple_list_item_1, android.R.id.text1, values);
+    		   R.layout.itemview, R.id.textitem, values);
     	        // Assign adapter to ListView
     	        listView.setAdapter(adapter); 
     	        

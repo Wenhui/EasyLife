@@ -43,21 +43,38 @@ public class NewBill extends Activity implements View.OnClickListener{
     final static int MapData = 1;
     private Bitmap bmp; 
     private ImageView showpic;
+    private Spinner spinner;
+    private boolean flag;
     
 	private int year;
 	private int month;
 	private int day;
+	String title;
 	
     private ScheduleClient scheduleClient;
     
     static final int DATE_DIALOG_ID = 999;
 	
 	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		// TODO Auto-generated method stub
+		
+	    outState.putByteArray("image", drawableToByteArray(bmp));
+	    outState.putBoolean("flag", flag);
+	    
+	}
+
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
+		if(savedInstanceState != null){
+		flag = savedInstanceState.getBoolean("flag");  
 		
+		if(savedInstanceState.getByteArray("image") != null)
+			bmp = byteToDrawable(savedInstanceState.getByteArray("image"));
+		}
         // Create a new service client and bind our activity to this service
         scheduleClient = new ScheduleClient(this);
         scheduleClient.doBindService();
@@ -70,13 +87,18 @@ public class NewBill extends Activity implements View.OnClickListener{
  
 		
 		OUTPUT_FILE = "/sdcard/"+generateFileName()+".3gp";
-        setContentView(R.layout.new_bill);
-        InputStream is = getResources().openRawResource(R.drawable.nophoto);
-        bmp = BitmapFactory.decodeStream(is);
+        setContentView(R.layout.new_bill2);
+
+
+	    showpic = (ImageView) findViewById (R.id.imageViewReturnedPic);
+	    showpic.setOnClickListener(this);
+	    System.out.println("flag =" + flag);
+	    if(flag == true)
+	    	showpic.setImageBitmap(bmp);
         final MediaPlayer mpButtonClick = MediaPlayer.create(this, R.raw.button);
              
  
-        Spinner spinner = (Spinner) findViewById(R.id.SpinnerCategory);
+        spinner = (Spinner) findViewById(R.id.SpinnerCategory);
 	     // Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
 				R.array.category, android.R.layout.simple_spinner_item);
@@ -86,8 +108,7 @@ public class NewBill extends Activity implements View.OnClickListener{
 		spinner.setAdapter(adapter);
 
 	 
-	    showpic = (ImageView) findViewById (R.id.imageViewReturnedPic);
-	    showpic.setOnClickListener(this);
+
 	    
 	     
 	    Button back = (Button)findViewById(R.id.ButtonBack);
@@ -260,10 +281,13 @@ public class NewBill extends Activity implements View.OnClickListener{
 			break;
 		case R.id.ButtonNext:
 			mpButtonClick.start();
-			String title = ((EditText)findViewById(R.id.editTextBillTitle)).getText().toString();
+			title = ((EditText)findViewById(R.id.editTextBillTitle)).getText().toString();
 			String price_string = ((EditText)findViewById(R.id.editTextPrice)).getText().toString();
 			String category = ((Spinner)findViewById(R.id.SpinnerCategory)).getSelectedItem().toString();
 			boolean status = ((CheckBox)findViewById(R.id.CheckBoxStatus)).isChecked();
+	        InputStream is = getResources().openRawResource(R.drawable.nophoto);
+//	        if(flag == false)
+//	        	bmp = BitmapFactory.decodeStream(is);
 			byte[] image = drawableToByteArray(bmp);
 			
 			System.out.println("title "+title);
@@ -287,10 +311,12 @@ public class NewBill extends Activity implements View.OnClickListener{
 		      	c.set(Calendar.HOUR_OF_DAY, 0);
 		      	c.set(Calendar.MINUTE, 0);
 		      	c.set(Calendar.SECOND, 0);
+		      	if(status == false){
 		      	// Ask our service to set an alarm for that date, this activity talks to the client that talks to the service
 		      	scheduleClient.setAlarmForNotification(c);
 		      	// Notify the user what they just did
-		    	Toast.makeText(NewBill.this, "Notification set for: "+ day +"/"+ (month+1) +"/"+ year, Toast.LENGTH_SHORT).show();
+		    	Toast.makeText(NewBill.this, "Notification set for: "+ (month+1)+"/"+ day  +"/"+ year, Toast.LENGTH_SHORT).show();
+		      	}
 				finish();
 			}	
 			break;
@@ -313,6 +339,7 @@ public class NewBill extends Activity implements View.OnClickListener{
 		
 		case (CameraData): {
 		if(resultCode == RESULT_OK) {
+			flag = true;
 			Bundle extras = data.getExtras();
 			bmp = (Bitmap) extras.get("data");
 			showpic.setImageBitmap(bmp);
@@ -324,10 +351,34 @@ public class NewBill extends Activity implements View.OnClickListener{
 			        // TODO Extract the data returned from the child Activity.
 				 
 				 String location = data.getStringExtra("location");
+				 String titleValue = data.getStringExtra("BillTitle");
 				 
-				 TextView l = (TextView)findViewById(R.id.location);
-				 l.setText(location);
-				 
+//				 TextView l = (TextView)findViewById(R.id.location);
+//				 l.setText(titleValue);
+				 if (location.contains("Clothing")) {
+					 spinner.setSelection(4);
+				 	 EditText edittitle = (EditText)findViewById(R.id.editTextBillTitle);
+				 	 edittitle.setText(titleValue);
+				 }
+				 else if (location.contains("Post Office"))
+				 {
+					 spinner.setSelection(1);
+				 	 EditText edittitle = (EditText)findViewById(R.id.editTextBillTitle);
+				 	 edittitle.setText(titleValue);
+				 }
+				 else if (location.contains("Gas Station"))
+				 {
+					 spinner.setSelection(2);
+				 	 EditText edittitle = (EditText)findViewById(R.id.editTextBillTitle);
+				 	 edittitle.setText(titleValue);
+				 }
+				 else if (location.contains("Rent"))
+				 {
+					 spinner.setSelection(3);
+				 	 EditText edittitle = (EditText)findViewById(R.id.editTextBillTitle);
+				 	 edittitle.setText(titleValue);
+				 }
+				 else spinner.setSelection(0);
 			      }
 			 break;
 		}
@@ -372,7 +423,7 @@ public class NewBill extends Activity implements View.OnClickListener{
 		return formatDate;
 	}
 	
-
+   
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		switch (id) {
@@ -392,12 +443,13 @@ public class NewBill extends Activity implements View.OnClickListener{
 			year = selectedYear;
 			month = selectedMonth;
 			day = selectedDay; 
-						
+		    Button datePicker = (Button)findViewById(R.id.DatePicker);
+		    datePicker.setText("DueDate:"+month+"/"+day+"/"+year);		
 		}
 	};
 }
 
-
+  
 //private void stopPlayingRecording() throws Exception 
 //{
 //	if(mediaPlayer!=null)

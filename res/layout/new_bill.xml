@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:okCancelBar="http://schemas.android.com/apk/res/com.example.android.merge">
-    
+    xmlns:okCancelBar="http://schemas.android.com/apk/res/com.example.android.merge">
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="top"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="@drawable/background" >
 
     <Button
         android:id="@+id/ButtonRecord"
@@ -20,7 +20,7 @@
         android:layout_marginBottom="62dp"
         android:text="VOICE MEMO" />
 
-    <CheckBox
+    <CheckBox2
         android:id="@+id/CheckBoxStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -59,15 +59,6 @@
         android:layout_alignParentRight="true"
         android:src="@drawable/addphoto" />
 
-    <TextView
-        android:id="@+id/TextStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/CheckBoxStatus"
-        android:layout_alignBottom="@+id/CheckBoxStatus"
-        android:layout_marginLeft="19dp"
-        android:layout_toRightOf="@+id/CheckBoxStatus"
-        android:text="Status" />
 
     <TextView
         android:id="@+id/TextPrice"
@@ -106,17 +97,8 @@
         android:layout_above="@+id/ButtonRecord"
         android:layout_alignLeft="@+id/imageViewReturnedPic"
         android:layout_marginLeft="18dp"
-        android:text="DATEPICKER" />
+        android:text="DueDatePicker" />
 
-    <TextView
-        android:id="@+id/DueDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/TextCategory"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="41dp"
-        android:layout_toLeftOf="@+id/imageViewReturnedPic"
-        android:text="Date to due" />
 
     <Button
         android:id="@+id/ButtonMap"
@@ -127,13 +109,7 @@
         android:layout_marginTop="18dp"
         android:text="MAP" />
 
-    <TextView
-        android:id="@+id/location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/ButtonMap"
-        android:text="current location" />
+
 
 </RelativeLayout>
 
@@ -162,5 +138,9 @@
         />
     </LinearLayout>
 
+    <Spinner
+        android:id="@+id/Spinner01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </merge>

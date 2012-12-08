@@ -3,14 +3,18 @@ package com.example.easylife;
 import java.util.Calendar;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -34,6 +38,8 @@ public class HomePage extends Activity implements View.OnClickListener{
     Button sqlGetInfo;
     Button sqlDelete;
     Database db = new Database(this);
+    String product2;
+    String[] values;
     
     
 //    private ScheduleClient scheduleClient;
@@ -45,13 +51,13 @@ public class HomePage extends Activity implements View.OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-        setContentView(R.layout.homepage);
+        setContentView(R.layout.homepage2);
         
 
         ListView listView = (ListView) findViewById(R.id.listView);
 	    Database info = new Database(this);
 	    info.open();
-	    String[] values = info.getData();
+	    values = info.getData();
 	    info.close();
 	    
 	    for(int i = 0; i < values.length; i++){
@@ -63,15 +69,13 @@ public class HomePage extends Activity implements View.OnClickListener{
         // Third parameter - ID of the TextView to which the data is written
         // Forth - the Array of data
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-          android.R.layout.simple_list_item_1, android.R.id.text1, values);
-
-        // Assign adapter to ListView
-        listView.setAdapter(adapter); 
+          R.layout.itemview, R.id.textitem, values);
         
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View view, int position, long id){
                 // Start your Activity according to the item just clicked.
-                String product = ((TextView) view).getText().toString(); 
+             //   String product = ((TextView) view).getText().toString(); 
+            	String product = values[position];
                 long item_id = -1;
                 
         	    db.open();
@@ -105,29 +109,57 @@ public class HomePage extends Activity implements View.OnClickListener{
             
             public boolean onItemLongClick(AdapterView parent, View view, int position, long id){  
                 // TODO Auto-generated method stub  
+                product2 = ((TextView) view).getText().toString(); 
+            	AlertDialog.Builder alertDialog = new AlertDialog.Builder(HomePage.this);
+            	 
+                // Setting Dialog Title
+                alertDialog.setTitle("Delete");
+         
+                // Setting Dialog Message
+                alertDialog.setMessage("Are you sure you want delete this?");
+         
+                // Setting Icon to Dialog
+                alertDialog.setIcon(R.drawable.money);
+         
+                // Setting Positive "Yes" Button
+                alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int which) {
+         
+                    // Write your code here to invoke YES event
+                        long item_id = -1;
+                	    db.open();
+                	    String[] values_temp = db.getData();
+                	    db.close();
+                	    String temp[] = new String [2];
+                	    for(int i = 0; i < values_temp.length; i++){
+                	    	temp = values_temp[i].split("	", 2);
+                	    	if(temp[1].equalsIgnoreCase(product2)){
+                                String parameters[]  = values_temp[i].split("	");
+                                item_id = Long.parseLong(parameters[0]);
+                	    	}
+                	    }
+                        //need a dialog here
+        	            db.open();           
+        	            db.delete(item_id);
+        	            db.close();    
+        	            onResume();
+ //                   Toast.makeText(getApplicationContext(), "You clicked on YES", Toast.LENGTH_SHORT).show();
+                    }
+                });
+         
+                // Setting Negative "NO" Button
+                alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    // Write your code here to invoke NO event
+ //                   Toast.makeText(getApplicationContext(), "You clicked on NO", Toast.LENGTH_SHORT).show();
+                    dialog.cancel();
+                    }
+                });
+         
+                // Showing Alert Message
+                alertDialog.show();                
+                
 
-                
-                
-                
-                String product = ((TextView) view).getText().toString(); 
-                long item_id = -1;
-                
-        	    db.open();
-        	    String[] values_temp = db.getData();
-        	    db.close();
-        	    String temp[] = new String [2];
-        	    for(int i = 0; i < values_temp.length; i++){
-        	    	temp = values_temp[i].split("	", 2);
-        	    	if(temp[1].equalsIgnoreCase(product)){
-                        String parameters[]  = values_temp[i].split("	");
-                        item_id = Long.parseLong(parameters[0]);
-        	    	}
-        	    }
-                //need a dialog here
-	            db.open();           
-	            db.delete(item_id);
-	            db.close();    
-	            onResume();
                 return true;  
             }  
           });  
@@ -210,7 +242,7 @@ public class HomePage extends Activity implements View.OnClickListener{
         ListView listView = (ListView) findViewById(R.id.listView);
 	    Database info = new Database(this);
 	    info.open();
-	    String[] values = info.getData();
+	    values = info.getData();
 	    info.close();
 	    
 	    for(int i = 0; i < values.length; i++){
@@ -222,7 +254,7 @@ public class HomePage extends Activity implements View.OnClickListener{
         // Third parameter - ID of the TextView to which the data is written
         // Forth - the Array of data
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-          android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        		R.layout.itemview, R.id.textitem, values);
 
         // Assign adapter to ListView
         listView.setAdapter(adapter); 

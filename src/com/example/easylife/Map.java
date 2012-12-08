@@ -80,6 +80,9 @@ public class Map extends MapActivity
         String provider=locationManager.getBestProvider(criteria, true);
         //get loaction information
         Location location=locationManager.getLastKnownLocation(provider);
+//        location.setLatitude(37.378547);
+//        location.setLongitude(-122.076909);
+        
         //update location
         updateWithNewLocation(location);
         //set to update every 3000ms
@@ -132,9 +135,17 @@ public class Map extends MapActivity
                                   // TODO Auto-generated method stub
                         	  Intent resultIntent = new Intent();
                         	// TODO Add extras or a data URI to this intent as appropriate.
-                        	  resultIntent.putExtra("location", itemizedoverlay.item.getSnippet());
+                        	  try {
+                        		  resultIntent.putExtra("location", itemizedoverlay.item.getSnippet());
+                        		  resultIntent.putExtra("BillTitle", itemizedoverlay.item.getTitle());
+                        	  }
+                        	  catch (NullPointerException e) {
+                        		  resultIntent.putExtra("location", "no location selected");
+                        	  }
+                        	  finally {
                         	  setResult(Activity.RESULT_OK, resultIntent);
                                   finish();
+                        	  }
                           }
                   });
         
@@ -152,6 +163,7 @@ public class Map extends MapActivity
     	startActivity( new Intent("com.example.easylife.add"));
     	
     	System.out.println(itemizedoverlay.item.getSnippet());
+    	System.out.println(itemizedoverlay.item.getTitle());
     }
 		
 	}
@@ -343,7 +355,7 @@ public class Map extends MapActivity
 //		        	  mListener.onDialogPositiveClick(d.this);
 //		      		  startActivity( new Intent("com.example.easylife.add"));
 		        	  flag = true;
-		        	  System.out.println("user entered: " + flag);
+//		        	  System.out.println("user entered: " + flag);
 		        	  
 		        	  
 

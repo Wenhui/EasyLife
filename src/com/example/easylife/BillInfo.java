@@ -107,7 +107,7 @@ public class BillInfo extends Activity implements OnTouchListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.bill_info);
+		setContentView(R.layout.bill_info2);
 		
 		
 	    mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);

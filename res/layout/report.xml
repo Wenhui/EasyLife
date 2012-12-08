@@ -22,8 +22,8 @@
     <ListView
         android:id="@+id/listView_report"
         android:layout_width="match_parent"
-        android:layout_height="436dp" >
-
+        android:layout_height="436dp" 
+        android:background="@drawable/background" >
     </ListView>
 
 </merge>

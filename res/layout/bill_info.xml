@@ -2,8 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-
+    android:orientation="vertical"
+    android:background="@drawable/background"  >
+
+
     <ImageView
         android:id="@+id/imageViewReturnedPic2"
         android:layout_width="match_parent"
@@ -19,7 +21,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="189dp"
-        android:text="Bill Title" />
+        android:text="Bill Title"
+        android:textColor="@android:color/white" />
 
     <EditText
         android:id="@+id/editTextBillTitle2"
@@ -38,7 +41,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/editTextBillTitle2"
-        android:text="Price" />
+        android:text="Price"
+        android:textColor="@android:color/white" />
 
     <EditText
         android:id="@+id/editTextPrice2"
@@ -55,7 +59,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/editTextPrice2"
-        android:text="Category" />
+        android:text="Category"
+        android:textColor="@android:color/white" />
 
     <Spinner
         android:id="@+id/SpinnerCategory2"
@@ -70,7 +75,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/SpinnerCategory2"
-        android:text="Status" />
+        android:text="Status"
+        android:textColor="@android:color/white" />
 
     <CheckBox
         android:id="@+id/CheckBoxStatus2"
@@ -79,7 +85,8 @@
         android:layout_alignBaseline="@+id/TextStatus2"
         android:layout_alignBottom="@+id/TextStatus2"
         android:layout_toRightOf="@+id/TextBillTitle2"
-        android:text="Paid" />
+        android:text="Paid"
+        android:textColor="@android:color/white" />
 
      <Button
          android:id="@+id/ButtonRecord2"
