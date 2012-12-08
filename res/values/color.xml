@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white">#ffffffff</color>
+    <color name="wheat">#F5DEB3</color>
+    <color name ="paleGoldenRod">#EEE8AA</color>
+    <color name ="RosyBrown ">#BC8F8F</color>
     
 </resources>

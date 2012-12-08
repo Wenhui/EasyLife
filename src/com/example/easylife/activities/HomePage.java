@@ -7,6 +7,7 @@ import com.example.easylife.R.drawable;
 import com.example.easylife.R.id;
 import com.example.easylife.R.layout;
 import com.example.easylife.R.raw;
+import com.example.easylife.services.Database;
 
 import android.app.Activity;
 import android.app.AlertDialog;

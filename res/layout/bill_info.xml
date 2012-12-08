@@ -30,12 +30,12 @@
             android:text="Bill Title"
             android:textColor="@android:color/white"
             android:textSize="20dp" />
-
+
         <EditText
             android:id="@+id/editTextBillTitle2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/purple"
+            android:background="@drawable/yellow"
             android:ems="10" >
 
             <requestFocus />
@@ -48,12 +48,12 @@
             android:text="Price"
             android:textColor="@android:color/white"
             android:textSize="20dp" />
-
+
         <EditText
             android:id="@+id/editTextPrice2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/red"
+            android:background="@drawable/yellow"
             android:ems="10"
             android:inputType="numberDecimal" />
 
@@ -64,12 +64,12 @@
             android:text="Category"
             android:textColor="@android:color/white"
             android:textSize="20dp" />
-
+
         <Spinner
             android:id="@+id/SpinnerCategory2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/green" />
+            android:background="@drawable/red" />
 
     </LinearLayout>
 
@@ -85,14 +85,14 @@
             android:text="Paid"
             android:textColor="@android:color/white"
             android:textSize="20dp" />
-
+
         <Button
             android:id="@+id/ButtonRecord2"
             style="@style/ButtonText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="50"
-            android:background="@drawable/yellow"
+            android:background="@drawable/green"
             android:text="Play Memo"
             android:textSize="20dp" />
 
@@ -102,7 +102,7 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_gravity="bottom" >
-
+
         <Button
             android:id="@+id/ButtonBack2"
             style="@style/ButtonText"
@@ -110,8 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_weight="50"
-            android:background="@drawable/black"
-            android:shadowColor="@color/white"
+            android:background="@drawable/blue"
             android:text="Back"
             android:textSize="20dp" />
 

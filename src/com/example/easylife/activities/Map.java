@@ -86,8 +86,7 @@ public class Map extends MapActivity
         String provider=locationManager.getBestProvider(criteria, true);
         //get loaction information
         Location location=locationManager.getLastKnownLocation(provider);
-//        location.setLatitude(37.378547);
-//        location.setLongitude(-122.076909);
+
         
         //update location
         updateWithNewLocation(location);
@@ -362,6 +361,8 @@ public class Map extends MapActivity
 //		      		  startActivity( new Intent("com.example.easylife.add"));
 		        	  flag = true;
 //		        	  System.out.println("user entered: " + flag);
+		        	  Button confirm = (Button) findViewById (R.id.ConfirmLocation);
+		        	  confirm.setText("Confirm");
 		        	  
 		        	  
 

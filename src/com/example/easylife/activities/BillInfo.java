@@ -6,6 +6,7 @@ import com.example.easylife.R;
 import com.example.easylife.R.array;
 import com.example.easylife.R.id;
 import com.example.easylife.R.layout;
+import com.example.easylife.services.Database;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

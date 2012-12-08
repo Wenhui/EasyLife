@@ -21,16 +21,14 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_gravity="bottom" >
-
-
-
-
+
         <Button
             android:id="@+id/back_button"
+            style="@style/ButtonText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
             android:layout_weight="100"
+            android:background="@drawable/blue"
             android:text="Back"
             android:textSize="20dp" />
 

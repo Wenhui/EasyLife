@@ -1,4 +1,4 @@
-package com.example.easylife.activities;
+package com.example.easylife.services;
 
 import java.util.Calendar;
 

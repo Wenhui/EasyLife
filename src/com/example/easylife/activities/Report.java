@@ -12,6 +12,7 @@ import com.example.easylife.R;
 import com.example.easylife.R.id;
 import com.example.easylife.R.layout;
 import com.example.easylife.R.raw;
+import com.example.easylife.services.Database;
 
 
 public class Report extends Activity{
