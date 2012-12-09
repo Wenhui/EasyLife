@@ -80,6 +80,7 @@ public class NewBill extends Activity implements View.OnClickListener{
 		
 		if(savedInstanceState.getByteArray("image") != null)
 			bmp = byteToDrawable(savedInstanceState.getByteArray("image"));
+		
 		}
         // Create a new service client and bind our activity to this service
         scheduleClient = new ScheduleClient(this);
