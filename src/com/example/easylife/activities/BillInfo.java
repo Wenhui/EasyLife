@@ -6,6 +6,7 @@ import com.example.easylife.R;
 import com.example.easylife.R.array;
 import com.example.easylife.R.id;
 import com.example.easylife.R.layout;
+import com.example.easylife.services.Database;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -64,50 +65,12 @@ public class BillInfo extends Activity implements OnTouchListener{
     PointF start = new PointF();
     PointF mid = new PointF();
     float oldDist = 1f;
-
-	// Limit zoomable/pannable image
-//	private float[] matrixValues = new float[9];
-//	private float maxZoom;
-//	private float minZoom;
-//	private float height;
-//	private float width;
-//	private RectF viewRect;
-	
 	
 	
 	private SensorManager mSensorManager;
 	private float mAccel; // acceleration apart from gravity
 	private float mAccelCurrent; // current acceleration including gravity
 	private float mAccelLast; // last acceleration including gravity
-
-	private final SensorEventListener mSensorListener = new SensorEventListener() {
-
-		public void onSensorChanged(SensorEvent se) {
-			float x = se.values[0];
-			float y = se.values[1];
-			float z = se.values[2];
-			mAccelLast = mAccelCurrent;
-			mAccelCurrent = (float) Math.sqrt((double) (x*x + y*y + z*z));
-			float delta = mAccelCurrent - mAccelLast;
-			mAccel = mAccel * 0.9f + delta; // perform low-cut filter
-	  
-			if(mAccel > 2){
-				if(((CheckBox)findViewById(R.id.CheckBoxStatus2)).isChecked() == false)
-				{
-				((CheckBox)findViewById(R.id.CheckBoxStatus2)).setChecked(true);
-				savedata();
-				finish();
-				}
-				}
-			}
-
-	    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-	    	
-	    	
-	    }
-	};
-
-	
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -115,13 +78,14 @@ public class BillInfo extends Activity implements OnTouchListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.bill_info);
 		
-		
+		//intializing the Accelerometer
 	    mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 	    mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
 	    mAccel = 0.00f;
 	    mAccelCurrent = SensorManager.GRAVITY_EARTH;
 	    mAccelLast = SensorManager.GRAVITY_EARTH;
 		
+		//to get the information from Intent
 	    String bill_title = getIntent().getStringExtra("bill_title");
 	    Double bill_price = getIntent().getDoubleExtra("bill_price", 0.0);
 	    String bill_category = getIntent().getStringExtra("bill_category");
@@ -129,15 +93,12 @@ public class BillInfo extends Activity implements OnTouchListener{
 	    byte[] bill_image = getIntent().getByteArrayExtra("bill_image");
 	    OUTPUT_FILE = getIntent().getStringExtra("bill_memo");
 	    Bitmap image = byteToDrawable(bill_image);
-	    
 	    bill_id = getIntent().getLongExtra("bill_id", -1);
-	    
+
+	    //set the information to show on the screen
 	    myimage = (ImageView) findViewById (R.id.imageViewReturnedPic2);
 	    myimage.setImageBitmap(image);
 	    myimage.setOnTouchListener(this);
-	    
-	    	
-
         Spinner spinner = (Spinner) findViewById(R.id.SpinnerCategory2);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -153,6 +114,7 @@ public class BillInfo extends Activity implements OnTouchListener{
         spinner.setSelection(category_id);
         ((CheckBox)findViewById(R.id.CheckBoxStatus2)).setChecked(bill_status);
         
+        //edit button
         Button edit = (Button) findViewById (R.id.ButtonEdit2);
         edit.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -162,7 +124,7 @@ public class BillInfo extends Activity implements OnTouchListener{
 			}
 		});         
         
-      
+        //back button
         Button back = (Button) findViewById (R.id.ButtonBack2);
         back.setOnClickListener(new View.OnClickListener() {
 			
@@ -170,11 +132,11 @@ public class BillInfo extends Activity implements OnTouchListener{
 				// TODO Auto-generated method stub
 				finish();
 			}
-		});    
-      
+		});
+
+      	//intializing the button to play the memo
         Button play = (Button) findViewById (R.id.ButtonRecord2);
         play.setOnClickListener(new View.OnClickListener() {
-			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				try {
@@ -227,7 +189,7 @@ public class BillInfo extends Activity implements OnTouchListener{
 	        return new BitmapDrawable(BitmapFactory.decodeByteArray(data, 0, data.length)).getBitmap();
 	}
 	
-	   /** Called when the activity is first created. */
+	// Called when the activity is first created. 
     public boolean onTouch(View v, MotionEvent event) 
     {
         ImageView view = (ImageView) v;
@@ -235,7 +197,6 @@ public class BillInfo extends Activity implements OnTouchListener{
         float scale;
 
         dumpEvent(event);
-        // Handle touch events here...
 
         switch (event.getAction() & MotionEvent.ACTION_MASK) 
         {
@@ -296,26 +257,12 @@ public class BillInfo extends Activity implements OnTouchListener{
         return true; // indicate event was handled
     }
 
-    /*
-     * --------------------------------------------------------------------------
-     * Method: spacing Parameters: MotionEvent Returns: float Description:
-     * checks the spacing between the two fingers on touch
-     * ----------------------------------------------------
-     */
-
     private float spacing(MotionEvent event) 
     {
         float x = event.getX(0) - event.getX(1);
         float y = event.getY(0) - event.getY(1);
         return FloatMath.sqrt(x * x + y * y);
     }
-
-    /*
-     * --------------------------------------------------------------------------
-     * Method: midPoint Parameters: PointF object, MotionEvent Returns: void
-     * Description: calculates the midpoint between the two fingers
-     * ------------------------------------------------------------
-     */
 
     private void midPoint(PointF point, MotionEvent event) 
     {
@@ -324,7 +271,7 @@ public class BillInfo extends Activity implements OnTouchListener{
         point.set(x / 2, y / 2);
     }
 
-    /** Show an event in the LogCat view, for debugging */
+    //Show an event in the LogCat view, for debugging
     private void dumpEvent(MotionEvent event) 
     {
         String names[] = { "DOWN", "UP", "MOVE", "CANCEL", "OUTSIDE","POINTER_DOWN", "POINTER_UP", "7?", "8?", "9?" };
@@ -354,7 +301,6 @@ public class BillInfo extends Activity implements OnTouchListener{
         Log.d("Touch Events ---------", sb.toString());
     }	
     
-    
     @Override
     protected void onResume() {
       super.onResume();
@@ -367,8 +313,37 @@ public class BillInfo extends Activity implements OnTouchListener{
       mSensorManager.unregisterListener(mSensorListener);
       
     }
-    
-    
+
+    //Set the SensorEventListener 
+	private final SensorEventListener mSensorListener = new SensorEventListener() {
+
+		public void onSensorChanged(SensorEvent se) {
+			float x = se.values[0];
+			float y = se.values[1];
+			float z = se.values[2];
+			mAccelLast = mAccelCurrent;
+			mAccelCurrent = (float) Math.sqrt((double) (x*x + y*y + z*z));
+			float delta = mAccelCurrent - mAccelLast;
+			mAccel = mAccel * 0.9f + delta; // perform low-cut filter
+	  
+			if(mAccel > 2){
+				if(((CheckBox)findViewById(R.id.CheckBoxStatus2)).isChecked() == false)
+				{
+				((CheckBox)findViewById(R.id.CheckBoxStatus2)).setChecked(true);
+				savedata();
+				finish();
+				}
+				}
+			}
+
+	    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+	    	
+	    	
+	    }
+	};
+
+
+    //private method to save the present changed date to the datebase
     private void savedata(){
 		String title = ((EditText)findViewById(R.id.editTextBillTitle2)).getText().toString();
 		String price_string = ((EditText)findViewById(R.id.editTextPrice2)).getText().toString();
@@ -393,12 +368,3 @@ public class BillInfo extends Activity implements OnTouchListener{
 		}
     }
 }
-
-
-//private void stopPlayingRecording() throws Exception 
-//{
-//	if(mediaPlayer!=null)
-//	{
-//		mediaPlayer.stop();
-//	}
-//}

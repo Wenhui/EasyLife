@@ -8,12 +8,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 
-/**
- * This is our service client, it is the 'middle-man' between the
- * service and any activity that wants to connect to the service
- * 
- * @author paul.blundell
- */
 public class ScheduleClient {
 
 	// The hook into our service

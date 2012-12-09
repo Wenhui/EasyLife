@@ -48,7 +48,6 @@ public class Map extends MapActivity
 {
 	public MapController mapController;
     public MyLocationOverlay myPosition;
-//    public GeoPoint NobHill;
     public MapView myMapView;
     private static final int ZOOM_IN=Menu.FIRST; 
     private static final int ZOOM_OUT=Menu.FIRST+1;
@@ -72,8 +71,6 @@ public class Map extends MapActivity
         myPosition=new MyLocationOverlay();
         List<Overlay> overlays=myMapView.getOverlays();
         overlays.add(myPosition);
-//        NobHill = new GeoPoint(0, 0);
-//        OverlayItem overlayitemNobHill = new OverlayItem(NobHill, "", "");
         //set criteria information
         Criteria criteria =new Criteria();
         //latitude requirement
@@ -86,9 +83,6 @@ public class Map extends MapActivity
         String provider=locationManager.getBestProvider(criteria, true);
         //get loaction information
         Location location=locationManager.getLastKnownLocation(provider);
-//        location.setLatitude(37.378547);
-//        location.setLongitude(-122.076909);
-        
         //update location
         updateWithNewLocation(location);
         //set to update every 3000ms
@@ -121,67 +115,45 @@ public class Map extends MapActivity
         itemizedoverlay.addOverlay(overlayitem5);
         mapOverlays.add(itemizedoverlay);
         
-//        super.onPause();
-        
-//        if (itemizedoverlay.getFlag() == true) {
-//        	startActivity( new Intent("com.example.easylife.add"));
-//        }
-        
-        
-//        while (itemizedoverlay.getFlag() == false) {
-//        	continue;
-//        }
-//        
-//        startActivity( new Intent("com.example.easylife.add"));
-        
         Button confirm = (Button) findViewById (R.id.ConfirmLocation);
-        confirm.setOnClickListener(new View.OnClickListener() {
-                          
-                          public void onClick(View v) {
-                                  // TODO Auto-generated method stub
-                        	  Intent resultIntent = new Intent();
-                        	// TODO Add extras or a data URI to this intent as appropriate.
-                        	  try {
-                        		  resultIntent.putExtra("location", itemizedoverlay.item.getSnippet());
-                        		  resultIntent.putExtra("BillTitle", itemizedoverlay.item.getTitle());
-                        	  }
-                        	  catch (NullPointerException e) {
-                        		  resultIntent.putExtra("location", "no location selected");
-                        	  }
-                        	  finally {
-                        	  setResult(Activity.RESULT_OK, resultIntent);
-                                  finish();
-                        	  }
-                          }
-                  });
+        confirm.setOnClickListener(new View.OnClickListener() {       
+            public void onClick(View v) {
+                  // TODO Auto-generated method stub
+                Intent resultIntent = new Intent();
+                // TODO Add extras or a data URI to this intent as appropriate.
+                try {
+                  resultIntent.putExtra("location", itemizedoverlay.item.getSnippet());
+                  resultIntent.putExtra("BillTitle", itemizedoverlay.item.getTitle());
+                }
+                catch (NullPointerException e) {
+                  resultIntent.putExtra("location", "no location selected");
+                }
+                finally {
+                setResult(Activity.RESULT_OK, resultIntent);
+                  finish();
+                }
+            }
+        });
         
     }
-	
-	
-	
 	
     @Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
 		
-      if (itemizedoverlay.getFlag() == true) {
-    	startActivity( new Intent("com.example.easylife.add"));
-    	
-    	System.out.println(itemizedoverlay.item.getSnippet());
-    	System.out.println(itemizedoverlay.item.getTitle());
-    }
-		
+          if (itemizedoverlay.getFlag() == true) {
+        	startActivity( new Intent("com.example.easylife.add"));
+        	
+        	System.out.println(itemizedoverlay.item.getSnippet());
+        	System.out.println(itemizedoverlay.item.getTitle());
+        }
 	}
-
-
-
 
 	private void updateWithNewLocation(Location location) 
     {
         String latLongString;
         TextView myLocationText = (TextView)findViewById(R.id.MapLocation);
-        
         String addressString="no location found\n";
         
         if(location!=null)
@@ -213,7 +185,6 @@ public class Map extends MapActivity
                     Address address=addresses.get(0);
                     for(int i=0;i<address.getMaxAddressLineIndex();i++)
                         sb.append(address.getAddressLine(i)).append("\n");
-                        
                         sb.append(address.getLocality()).append("\n");
                         sb.append(address.getPostalCode()).append("\n");
                         sb.append(address.getCountryName());
@@ -225,9 +196,9 @@ public class Map extends MapActivity
         {
             latLongString="no location found\n";
         }
-        //
         myLocationText.setText("you current location: \n"+latLongString+"\n");
     }
+
     private final LocationListener locationListener=new LocationListener()
     {
     	//when  location changes
@@ -245,6 +216,7 @@ public class Map extends MapActivity
         //when GPS status is changed
         public void onStatusChanged(String provider,int status,Bundle extras){}
     };
+
     protected boolean isRouteDisplayed()
 	{
 		return false;
@@ -257,6 +229,7 @@ public class Map extends MapActivity
 		menu.add(0, ZOOM_OUT, Menu.NONE, "zoom out");
 		return true;
 	}
+
     public boolean onOptionsItemSelected(MenuItem item)
 	{
 		super.onOptionsItemSelected(item);
@@ -273,8 +246,7 @@ public class Map extends MapActivity
 		}
 		return true;
 	}
-
-    
+ 
 	class MyLocationOverlay extends Overlay
 	{
 		Location mLocation;
@@ -303,27 +275,14 @@ public class Map extends MapActivity
 	}
 	
 	class HelloItemizedOverlay extends ItemizedOverlay{
-		
 		private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
 		private Context mContext;
 		public boolean flag = false;
 		public OverlayItem item;
 		
-		
-		
-//	    public interface NoticeDialogListener {
-//	        public void onDialogPositiveClick(AlertDialog.Builder dialog);
-//	        public void onDialogNegativeClick(AlertDialog.Builder dialog);
-//	    }
-	//    
-//	    // Use this instance of the interface to deliver action events
-//	    NoticeDialogListener mListener;
-
 		public boolean getFlag() {
 			return flag;
 		}
-
-
 
 		public HelloItemizedOverlay(Drawable defaultMarker) {
 			  super(boundCenterBottom(defaultMarker));
@@ -358,48 +317,18 @@ public class Map extends MapActivity
 			  .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 		          public void onClick(DialogInterface dialog, int id) {
 		              // User confirm the dialog
-//		        	  mListener.onDialogPositiveClick(d.this);
-//		      		  startActivity( new Intent("com.example.easylife.add"));
 		        	  flag = true;
-//		        	  System.out.println("user entered: " + flag);
-		        	  
-		        	  
-
-		        	  
+		        	  Button confirm = (Button) findViewById (R.id.ConfirmLocation);
+		        	  confirm.setText("Confirm");
 		          }
 		      })
 		      .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
 		          public void onClick(DialogInterface dialog, int id) {
 		              // User cancelled the dialog
-		        	  
 		          }
 		      });;
 		  dialog.show();
-		  
 		  return true;
 		}
-		
-//		 @Override
-//		    public Dialog onCreateDialog(Bundle savedInstanceState) {
-//		        // Use the Builder class for convenient dialog construction
-//		        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//		        builder.setMessage(R.string.dialog_fire_missiles)
-//		               .setPositiveButton(R.string.fire, new DialogInterface.OnClickListener() {
-//		                   public void onClick(DialogInterface dialog, int id) {
-//		                       // FIRE ZE MISSILES!
-//		                   }
-//		               })
-//		               .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-//		                   public void onClick(DialogInterface dialog, int id) {
-//		                       // User cancelled the dialog
-//		                   }
-//		               });
-//		        // Create the AlertDialog object and return it
-//		        return builder.create();
-//		    }
-
 	}
-
-   
-
 }

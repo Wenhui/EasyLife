@@ -7,6 +7,7 @@ import com.example.easylife.R.drawable;
 import com.example.easylife.R.id;
 import com.example.easylife.R.layout;
 import com.example.easylife.R.raw;
+import com.example.easylife.services.Database;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -46,20 +47,14 @@ public class HomePage extends Activity implements View.OnClickListener{
     Database db = new Database(this);
     String product2;
     String[] values;
-    
-    
-//    private ScheduleClient scheduleClient;
-    
-//    NotificationManager notificationManager = (NotificationManager) 
-//    		  getSystemService(NOTIFICATION_SERVICE); 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.homepage);
-        
 
+        //set the listView
         ListView listView = (ListView) findViewById(R.id.listView);
 	    Database info = new Database(this);
 	    info.open();
@@ -70,20 +65,13 @@ public class HomePage extends Activity implements View.OnClickListener{
 	    	String temp[] = values[i].split("	", 2);
 	    	values[i] = temp[1];
 	    }
-        // First paramenter - Context
-        // Second parameter - Layout for the row
-        // Third parameter - ID of the TextView to which the data is written
-        // Forth - the Array of data
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
           R.layout.itemview, R.id.textitem, values);
-        
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View view, int position, long id){
-                // Start your Activity according to the item just clicked.
-             //   String product = ((TextView) view).getText().toString(); 
             	String product = values[position];
                 long item_id = -1;
-                
         	    db.open();
         	    String[] values_temp = db.getData();
         	    db.close();
@@ -95,7 +83,6 @@ public class HomePage extends Activity implements View.OnClickListener{
                         item_id = Long.parseLong(parameters[0]);
         	    	}
         	    }
-        	    
 	            db.open();           
 				Intent bill_info = new Intent("com.example.easylife.billinfo");
 				bill_info.putExtra("bill_title", db.getName(item_id));//String
@@ -149,23 +136,18 @@ public class HomePage extends Activity implements View.OnClickListener{
         	            db.delete(item_id);
         	            db.close();    
         	            onResume();
- //                   Toast.makeText(getApplicationContext(), "You clicked on YES", Toast.LENGTH_SHORT).show();
                     }
                 });
          
                 // Setting Negative "NO" Button
                 alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                    // Write your code here to invoke NO event
- //                   Toast.makeText(getApplicationContext(), "You clicked on NO", Toast.LENGTH_SHORT).show();
                     dialog.cancel();
                     }
                 });
          
                 // Showing Alert Message
                 alertDialog.show();                
-                
-
                 return true;  
             }  
           });  
@@ -173,56 +155,8 @@ public class HomePage extends Activity implements View.OnClickListener{
           add = (Button)findViewById(R.id.button_add);
           add.setOnClickListener(this);
           report = (Button)findViewById(R.id.button_report);
-          report.setOnClickListener(this);
-        
+          report.setOnClickListener(this);      
 	}
-
-	
-	
-    
-    
-//    
-//    public void createNotification(View view) {
-//    	
-//        //
-//	//  Look up the notification manager server 
-//        NotificationManager nm = 
-//          (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-// 
-//        //
-//        //  Create your notification 
-//        int icon = R.drawable.easylifelog;
-//        CharSequence tickerText = "Hello";
-//        long when = System.currentTimeMillis();
-// 
-//        Notification notification = 
-//            new Notification( icon, tickerText, when);
-// 
-//        Context context = getApplicationContext();
-//        CharSequence contentTitle = "My notification";
-//        CharSequence contentText = "Hello World!";
-//        Intent notificationIntent = 
-//            new Intent(this, HomePage.class);
-//        PendingIntent contentIntent = 
-//            PendingIntent.getActivity(this, 0, notificationIntent, 0);
-// 
-//        notification.setLatestEventInfo(
-//            context, 
-//            contentTitle, 
-//            contentText, 
-//            contentIntent);
-// 
-//        // 
-//        //  Send the notification
-//  //      nm.notify( 1, notification );
-//        
-//        notification.flags |= Notification.FLAG_AUTO_CANCEL;
-//
-//        nm.notify(1, notification);
-//
-//
-//  	  }
-    
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
@@ -245,6 +179,7 @@ public class HomePage extends Activity implements View.OnClickListener{
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+        //update the listview when resume
         ListView listView = (ListView) findViewById(R.id.listView);
 	    Database info = new Database(this);
 	    info.open();
@@ -255,10 +190,6 @@ public class HomePage extends Activity implements View.OnClickListener{
 	    	String temp[] = values[i].split("	", 2);
 	    	values[i] = temp[1];
 	    }
-        // First paramenter - Context
-        // Second parameter - Layout for the row
-        // Third parameter - ID of the TextView to which the data is written
-        // Forth - the Array of data
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
         		R.layout.itemview, R.id.textitem, values);
 
@@ -275,8 +206,7 @@ public class HomePage extends Activity implements View.OnClickListener{
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub
-
-		super.onStop();
+        super.onStop();
 	}
 
 	public void onClick(View v) {
@@ -290,52 +220,7 @@ public class HomePage extends Activity implements View.OnClickListener{
 		case R.id.button_report:
 			startActivity( new Intent("com.example.easylife.report"));
 			mpButtonClick.start();
-			break;			
-			
-//		case R.id.button_SQLgetInfo:
-//			String s = sqlRow.getText().toString();
-//			long l = Long.parseLong(s);
-//			Database db = new Database(this);
-//			db.open();
-//			String returnedName = db.getName(l);
-//			double returnedPrice = db.getPrice(l);
-//			String returnedCategory = db.getCategory(l);
-//			boolean returnedStatus = db.getStatus(l);
-//			db.close();
-//			
-//			sqlName.setText(returnedName);
-////			sqlPrice.setText(returnedPrice);
-////			sqlCategory.setText(returnedCategory);
-//			break;
-//			
-//			
-//		case R.id.button_SQLEdit:
-//			String mName = sqlName.getText().toString();
-//			String sRow = sqlRow.getText().toString();
-//			long lRow = Long.parseLong(sRow);
-//			
-//			Database mdb = new Database(this);
-//			mdb.open();
-//			mdb.update(lRow, mName);
-//	        TextView tv = (TextView) findViewById(R.id.tvSQLinfo);
-//	        String data = mdb.getData();
-//	        mdb.close();
-//	        tv.setText(data);
-//			break;
-//			
-//		case R.id.button_SQLDelete:
-//			String sRow1 = sqlRow.getText().toString();
-//			long lRow1 = Long.parseLong(sRow1);
-//			Database ex1 = new Database(this);
-//			ex1.open();
-//			ex1.delete(lRow1);
-//	        TextView tv2 = (TextView) findViewById(R.id.tvSQLinfo);
-//	        String data2 = ex1.getData();
-//	        tv2.setText(data2);
-//			ex1.close();
-//			break;
-			
+			break;		
 		}
-	}
-	
+	}	
 }

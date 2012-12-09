@@ -36,6 +36,7 @@ import com.example.easylife.R.drawable;
 import com.example.easylife.R.id;
 import com.example.easylife.R.layout;
 import com.example.easylife.R.raw;
+import com.example.easylife.services.Database;
 import com.example.easylife.services.ScheduleClient;
 
 
@@ -60,42 +61,33 @@ public class NewBill extends Activity implements View.OnClickListener{
     private ScheduleClient scheduleClient;
     
     static final int DATE_DIALOG_ID = 999;
-	
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		// TODO Auto-generated method stub
-		
-	    outState.putByteArray("image", drawableToByteArray(bmp));
-	    outState.putBoolean("flag", flag);
-	    
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		
+
+		//Resume data from Bundle
 		if(savedInstanceState != null){
-		flag = savedInstanceState.getBoolean("flag");  
-		
-		if(savedInstanceState.getByteArray("image") != null)
-			bmp = byteToDrawable(savedInstanceState.getByteArray("image"));
+
+			flag = savedInstanceState.getBoolean("flag");  
+			if(savedInstanceState.getByteArray("image") != null)
+				bmp = byteToDrawable(savedInstanceState.getByteArray("image"));
 		
 		}
-        // Create a new service client and bind our activity to this service
+
+        //Create a new service client and bind our activity to this service
         scheduleClient = new ScheduleClient(this);
         scheduleClient.doBindService();
 		
-		
+		//Use calendar to get the date
 		final Calendar c = Calendar.getInstance();
 		year = c.get(Calendar.YEAR);
 		month = c.get(Calendar.MONTH);
 		day = c.get(Calendar.DAY_OF_MONTH);
- 
 		
 		OUTPUT_FILE = "/sdcard/"+generateFileName()+".3gp";
         setContentView(R.layout.new_bill);
-
 
 	    showpic = (ImageView) findViewById (R.id.imageViewReturnedPic);
 	    showpic.setOnClickListener(this);
@@ -104,7 +96,6 @@ public class NewBill extends Activity implements View.OnClickListener{
 	    	showpic.setImageBitmap(bmp);
         final MediaPlayer mpButtonClick = MediaPlayer.create(this, R.raw.button);
              
- 
         spinner = (Spinner) findViewById(R.id.SpinnerCategory);
 	     // Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -113,11 +104,8 @@ public class NewBill extends Activity implements View.OnClickListener{
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		// Apply the adapter to the spinner
 		spinner.setAdapter(adapter);
-
-	 
-
-	    
 	     
+	    //set the Button Click Listens
 	    Button back = (Button)findViewById(R.id.ButtonBack);
 	    back.setOnClickListener(this);
 	    Button confirm = (Button)findViewById(R.id.ButtonNext);
@@ -127,6 +115,7 @@ public class NewBill extends Activity implements View.OnClickListener{
 	    Button map = (Button)findViewById(R.id.ButtonMap);
 	    map.setOnClickListener(this);
      
+     	//set the Checkbox
 	    CheckBox checkbox = (CheckBox)findViewById(R.id.CheckBoxStatus);
 	    checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -141,9 +130,8 @@ public class NewBill extends Activity implements View.OnClickListener{
 			}
 	    });
 	    
-	    Button recordStart = (Button) findViewById (R.id.ButtonRecord);
-     
-     
+	    //use button onTouchListener to record the memo
+	    Button recordStart = (Button) findViewById (R.id.ButtonRecord); 
 	    recordStart.setOnTouchListener(new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
@@ -208,6 +196,7 @@ public class NewBill extends Activity implements View.OnClickListener{
 
 	@Override
 	protected void onStop() {
+		
 		// TODO Auto-generated method stub
     	// When our activity is stopped ensure we also stop the connection to the service
     	// this stops us leaking our activity into the system *bad*
@@ -215,12 +204,10 @@ public class NewBill extends Activity implements View.OnClickListener{
     		scheduleClient.doUnbindService();
 		super.onStop();
 	}
-	
-	
-	
-	
+
 	private void beginRecording() throws Exception 
 	{
+
 		killMediaRecorder();
 		File outFile = new File(OUTPUT_FILE);
 		if(outFile.exists())
@@ -265,6 +252,7 @@ public class NewBill extends Activity implements View.OnClickListener{
 	}
 
 	private void playRecording() throws Exception {
+
 		killMediaPlayer();
 		mediaPlayer = new MediaPlayer();
 		mediaPlayer.setDataSource(OUTPUT_FILE);
@@ -272,9 +260,9 @@ public class NewBill extends Activity implements View.OnClickListener{
 		mediaPlayer.start();
 	}
 
-
-
+	//set onClick Behaviour here
 	public void onClick(View v) {
+
 		// TODO Auto-generated method stub
 		final MediaPlayer mpButtonClick = MediaPlayer.create(this, R.raw.button);
 		switch (v.getId()) {
@@ -340,60 +328,55 @@ public class NewBill extends Activity implements View.OnClickListener{
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		switch(requestCode) {
-		
-		case (CameraData): {
-		if(resultCode == RESULT_OK) {
-			flag = true;
-			Bundle extras = data.getExtras();
-			bmp = (Bitmap) extras.get("data");
-			showpic.setImageBitmap(bmp);
-		}
-		break;
-		}
-		case(MapData): {
-			 if (resultCode == Activity.RESULT_OK) {
-			        // TODO Extract the data returned from the child Activity.
-				 
-				 String location = data.getStringExtra("location");
-				 String titleValue = data.getStringExtra("BillTitle");
-				 
-//				 TextView l = (TextView)findViewById(R.id.location);
-//				 l.setText(titleValue);
-				 if (location.contains("Clothing")) {
+			case (CameraData): {
+			if(resultCode == RESULT_OK) {
+				flag = true;
+				Bundle extras = data.getExtras();
+				bmp = (Bitmap) extras.get("data");
+				showpic.setImageBitmap(bmp);
+			}
+			break;
+			}
+			case(MapData): {
+				 if (resultCode == Activity.RESULT_OK) {
+				    // TODO Extract the data returned from the child Activity.
+					String location = data.getStringExtra("location");
+					String titleValue = data.getStringExtra("BillTitle");
+
+					if (location.contains("Clothing")) {
 					 spinner.setSelection(4);
-				 	 EditText edittitle = (EditText)findViewById(R.id.editTextBillTitle);
-				 	 edittitle.setText(titleValue);
-				 }
-				 else if (location.contains("Post Office"))
-				 {
+						 EditText edittitle = (EditText)findViewById(R.id.editTextBillTitle);
+						 edittitle.setText(titleValue);
+					}
+					else if (location.contains("Post Office"))
+					{
 					 spinner.setSelection(1);
-				 	 EditText edittitle = (EditText)findViewById(R.id.editTextBillTitle);
-				 	 edittitle.setText(titleValue);
-				 }
-				 else if (location.contains("Gas Station"))
-				 {
+						 EditText edittitle = (EditText)findViewById(R.id.editTextBillTitle);
+						 edittitle.setText(titleValue);
+					}
+					else if (location.contains("Gas Station"))
+					{
 					 spinner.setSelection(2);
-				 	 EditText edittitle = (EditText)findViewById(R.id.editTextBillTitle);
-				 	 edittitle.setText(titleValue);
-				 }
-				 else if (location.contains("Rent"))
-				 {
+						 EditText edittitle = (EditText)findViewById(R.id.editTextBillTitle);
+						 edittitle.setText(titleValue);
+					}
+					else if (location.contains("Rent"))
+					{
 					 spinner.setSelection(3);
-				 	 EditText edittitle = (EditText)findViewById(R.id.editTextBillTitle);
-				 	 edittitle.setText(titleValue);
-				 }
-				 else spinner.setSelection(0);
-			      }
-			 break;
+						 EditText edittitle = (EditText)findViewById(R.id.editTextBillTitle);
+						 edittitle.setText(titleValue);
+					}
+					else spinner.setSelection(0);
+					}
+					break;
+			}
 		}
-	}
 	}
 
-	
-	
 	public static byte[] drawableToByteArray(Bitmap d) {
 
 	    if (d != null) {
@@ -406,7 +389,6 @@ public class NewBill extends Activity implements View.OnClickListener{
 	        return null;
 
 	}
-
 
 	public static Bitmap byteToDrawable(byte[] data) {
 
@@ -425,6 +407,7 @@ public class NewBill extends Activity implements View.OnClickListener{
 	}
 	
 	private String getNowDateTime(){
+
 		SimpleDateFormat format = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
 		String formatDate = format.format(new Date());
 		return formatDate;
@@ -433,6 +416,7 @@ public class NewBill extends Activity implements View.OnClickListener{
    
 	@Override
 	protected Dialog onCreateDialog(int id) {
+
 		switch (id) {
 		case DATE_DIALOG_ID:
 		   // set date picker as current date
@@ -444,6 +428,7 @@ public class NewBill extends Activity implements View.OnClickListener{
 
 	protected DatePickerDialog.OnDateSetListener datePickerListener 
                 = new DatePickerDialog.OnDateSetListener() {
+
 		public void onDateSet(DatePicker view, int selectedYear,
 				int selectedMonth, int selectedDay) {
 			
@@ -454,13 +439,13 @@ public class NewBill extends Activity implements View.OnClickListener{
 		    datePicker.setText("DueDate:"+month+"/"+day+"/"+year);		
 		}
 	};
-}
 
-  
-//private void stopPlayingRecording() throws Exception 
-//{
-//	if(mediaPlayer!=null)
-//	{
-//		mediaPlayer.stop();
-//	}
-//}
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+
+		// TODO Auto-generated method stub
+		// to store the image and flag value when the screen rotate
+	    outState.putByteArray("image", drawableToByteArray(bmp));
+	    outState.putBoolean("flag", flag);   
+	}
+}

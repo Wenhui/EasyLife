@@ -1,4 +1,4 @@
-package com.example.easylife.activities;
+package com.example.easylife.services;
 
 import java.util.Calendar;
 
@@ -10,7 +10,6 @@ import android.widget.DatePicker;
 
 public class DatePickerFragment extends DialogFragment
 	implements DatePickerDialog.OnDateSetListener {
-	
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {

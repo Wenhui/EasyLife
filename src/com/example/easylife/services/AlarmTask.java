@@ -7,17 +7,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-
-/**
- * Set an alarm for the date passed into the constructor
- * When the alarm is raised it will start the NotifyService
- * 
- * This uses the android build in alarm manager *NOTE* if the phone is turned off this alarm will be cancelled
- * 
- * This will run on it's own thread.
- * 
- * @author paul.blundell
- */
 public class AlarmTask implements Runnable{
 	// The date selected for the alarm
 	private final Calendar date;

@@ -12,6 +12,7 @@ import com.example.easylife.R;
 import com.example.easylife.R.id;
 import com.example.easylife.R.layout;
 import com.example.easylife.R.raw;
+import com.example.easylife.services.Database;
 
 
 public class Report extends Activity{
@@ -23,37 +24,31 @@ public class Report extends Activity{
 		// TODO Auto-generated method stub
 		final MediaPlayer mpButtonClick = MediaPlayer.create(this, R.raw.button);
 		super.onCreate(savedInstanceState);
-		
-	    Database info = new Database(this);
-	    info.open();
-	    String[] values = info.getStatisticInfo2();
-	    info.close();
-		
-       setContentView(R.layout.report);
-       
-//       ListView listView = (ListView) findViewById(R.id.listView_report);
-//       
-//       ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-//    		   R.layout.itemview, R.id.textitem, values);
-//    	        // Assign adapter to ListView
-//    	        listView.setAdapter(adapter); 
-       GridView gridView = (GridView)findViewById(R.id.gridView1);
-	   ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-		   R.layout.itemview, R.id.textitem, values);
-	        // Assign adapter to ListView
-	   gridView.setAdapter(adapter); 
-       
-    	        
-       Button back = (Button) findViewById (R.id.back_button);
-       back.setOnClickListener(new View.OnClickListener() {
- 			
- 			public void onClick(View v) {
- 				// TODO Auto-generated method stub
- 				
- 				mpButtonClick.start();
- 				finish();
- 			}
- 		});   
+
+		db.open();
+		String[] values = db.getStatisticInfo2();
+		db.close();
+
+		setContentView(R.layout.report);
+
+		//Create the GridView to show the statistic information the bill
+		GridView gridView = (GridView)findViewById(R.id.gridView1);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+		R.layout.itemview, R.id.textitem, values);
+		// Assign adapter to ListView
+		gridView.setAdapter(adapter); 
+
+
+		Button back = (Button) findViewById (R.id.back_button);
+		back.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+
+				mpButtonClick.start();
+				finish();
+			}
+		});   
 	}
 
 	@Override

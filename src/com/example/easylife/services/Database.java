@@ -1,4 +1,4 @@
-package com.example.easylife.activities;
+package com.example.easylife.services;
 
 import java.text.DecimalFormat;
 
@@ -20,7 +20,6 @@ public class Database {
 	public static final String KEY_MEMO = "bill_memo";
 	public static final String KEY_DATE = "bill_date";
 	public static final String KEY_ALERT = "bill_alert";
-	
 	
 	private static final String DATABASE_NAME = "billDB";
 	private static final String DATABASE_TABLE = "billTabel";
@@ -103,15 +102,10 @@ public class Database {
 		int iRow = c.getColumnIndex(KEY_ROWID);
 		int iTitle = c.getColumnIndex(KEY_TITLE);
 		int iDate = c.getColumnIndex(KEY_DATE);
-//		int iPrice= c.getColumnIndex(KEY_PRICE);
-//		int iCategory = c.getColumnIndex(KEY_CATEGORY);
 		int iStatus = c.getColumnIndex(KEY_STATUS);
-//		int iImage = c.getColumnIndex(KEY_IMAGE);
 		int i = 0;
 		
 		for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
-//			result = result + c.getString(iRow) + " " + c.getString(iTitle) + " " + c.getString(iPrice) + " " + c.getString(iCategory)
-//+ " " + c.getString(iStatus) + "\n";
 			if(c.getInt(iStatus) == 0)
 			{
 				String temp [] = c.getString(iDate).split("_");
@@ -195,7 +189,6 @@ public class Database {
 		return null;
 	}
 	
-	
 	public String getMemo(long l) {
 		// TODO Auto-generated method stub
 		String[] columns = new String[]{
@@ -237,7 +230,6 @@ public class Database {
 		}
 		return null;
 	}
-
 
 	public void updateAllInfo(long lRow,String title, double price, String category,
 			boolean status) {
@@ -305,6 +297,7 @@ public class Database {
 
 		return result;		
 	}
+
 	public String [] getStatisticInfo2(){
 		
 		// TODO Auto-generated method stub
@@ -324,7 +317,6 @@ public class Database {
 		double prices [] = new double [5];
 		double percentages [] = new double [5];
 		String categories[] = {"Food","Education","Gas","Rent","Cloth"};
-		
 		
 		int iPrice= c.getColumnIndex(KEY_PRICE);
 		int iCategory = c.getColumnIndex(KEY_CATEGORY);
@@ -354,14 +346,6 @@ public class Database {
 			result[3*(ii+1)+1] = transfer.format(percentages[ii] * 100)+"%"; 
 			result[3*(ii+1)+2] = transfer.format(prices[ii]);
 		}
-
-//		result[0] = "Cat.           Per.       Tot."; 
-//		result[1] = categories[0] + "         " + transfer.format(percentages[0] * 100)  + "%      $" + transfer.format(prices[0]); 
-//		result[2] = categories[1] + "  " + transfer.format(percentages[1] * 100)  + "%        $" + transfer.format(prices[1]); 
-//		result[3] = categories[2] + "            " + transfer.format(percentages[2] * 100)  + "%        $" + transfer.format(prices[2]); 
-//		result[4] = categories[3] + "           " + transfer.format(percentages[3] * 100)  + "%        $" + transfer.format(prices[3]); 
-//		result[5] = categories[4] + "          " + transfer.format(percentages[4] * 100)  + "%        $" + transfer.format(prices[4]); 
-
 		return result;		
 	}
 }

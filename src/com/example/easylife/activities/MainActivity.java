@@ -21,10 +21,12 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         mpSplash = MediaPlayer.create(this, R.raw.logring);
         mpSplash.start();
+        //postpone 2 seconds to play the open App sound
         Thread logoTimer = new Thread(){
         	public void run(){
         		try {
 					sleep(2000);
+					//start the homepage activity
 					startActivity(new Intent("com.example.easylife.homepage"));
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
